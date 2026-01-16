@@ -8,22 +8,22 @@ namespace DataBridge
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // gRPC 서비스에 JSON 트랜스코딩 기능 추가
+            // 1. gRPC 서비스에 JSON Transcoding 서비스 추가
             builder.Services.AddGrpc().AddJsonTranscoding();
+
+            builder.Services.AddGrpcReflection(); // 리플렉션 서비스
 
             var app = builder.Build();
 
-            // HTTP 요청 파이프라인 구성
-            // 개발 환경이 아니더라도 gRPC 리플렉션을 켜두면 디버깅(Postman 등)에 좋음
+            // 2. 개발 환경일 경우 리플렉션 엔드포인트 활성화
             if (app.Environment.IsDevelopment())
             {
-                // app.MapGrpcReflectionService(); // (나중에 리플렉션 패키지 추가 시 주석 해제)
+                app.MapGrpcReflectionService();
             }
 
-            // 서비스 매핑 (GreeterService는 기본 템플릿에 포함된 예제, 나중에 우리 걸로 교체)
-            app.MapGrpcService<GreeterService>();
+            app.MapGrpcService<SearchServiceImpl>();
 
-            app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+            app.MapGet("/", () => "DataBridge Server Running on Port 8000");
 
             app.Run();
         }

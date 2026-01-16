@@ -1,0 +1,10 @@
+﻿USE DataBridgeDB;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE tb_GameLabel;
+TRUNCATE TABLE tb_GameInfo;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+SELECT * FROM tb_GameInfo;

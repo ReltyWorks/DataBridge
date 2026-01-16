@@ -1,0 +1,42 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "DataBridge.Search";
+
+package Search;
+
+// HTTP 트랜스코딩 필수 임포트
+import "google/api/annotations.proto";
+
+service SearchService {
+  // 1. 얕은 탐색 (주소: /v1/game/short/검색어)
+  rpc GetGameByShortName (ShortNameRequest) returns (GameLabelResponse) {
+    option (google.api.http) = {
+      get: "/search/short/{short_name}"
+    };
+  }
+
+  // 2. 깊은 탐색 (주소: /v1/game/index/번호)
+  rpc GetGameByIndex (GameIndexRequest) returns (GameLabelResponse) {
+    option (google.api.http) = {
+      get: "/search/index/{game_index}"
+    };
+  }
+}
+
+// --- 메시지 정의 ---
+
+message ShortNameRequest {
+  string short_name = 1;
+}
+
+message GameIndexRequest {
+  int32 game_index = 1;
+}
+
+message GameLabelResponse {
+  bool is_found = 1;
+  string short_name = 2;
+  string title = 3;
+  int32 game_index = 4;
+  int32 steam_app_id = 5;
+}

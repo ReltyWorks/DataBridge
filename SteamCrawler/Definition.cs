@@ -11,5 +11,17 @@
 
         public const string STEAM_API_KEY = "STEAM_API_KEY";
         public const string STEAM_API_BASE_URL = "https://api.steampowered.com/IStoreService/GetAppList/v1/";
+    
+        public const string DB_SCHEMA_NAME = "DataBridgeDB";
+        public const string DB_USERNAME = "root";
+        public const string DB_PASSWORD = "admin";
+
+        public const string INFO_TABLE_NAME = "tb_GameInfo";
+        public const string LABEL_TABLE_NAME = "tb_GameLabel";
+
+        public const string DB_FIELD_GAMEINDEX = "GameIndex";
+        public const string DB_FIELD_STEAMID = "SteamAppID";
+        public const string DB_FIELD_TITLE = "Title";
+        public const string DB_FIELD_SHORTNAME = "ShortName";
     }
 }

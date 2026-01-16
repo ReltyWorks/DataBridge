@@ -1,0 +1,29 @@
+﻿-- 1. 데이터베이스(스키마) 생성 (이름: DataBridgeDB)
+CREATE DATABASE IF NOT EXISTS DataBridgeDB;
+
+-- 2. 이 데이터베이스를 사용하겠다고 선언
+USE DataBridgeDB;
+
+-- 3. tb_GameInfo 테이블 생성 (무거운 상세 정보)
+CREATE TABLE IF NOT EXISTS tb_GameInfo (
+    GameIndex INT AUTO_INCREMENT PRIMARY KEY COMMENT '고유 번호 (자동생성)',
+    SteamAppID INT NOT NULL COMMENT '스팀 앱 ID',
+    Title VARCHAR(255) NOT NULL COMMENT '게임 제목',
+    Developer VARCHAR(255) COMMENT '개발사',
+    Publisher VARCHAR(255) COMMENT '배급사',
+    Genre VARCHAR(100) COMMENT '장르',
+    ReleaseDate INT COMMENT '출시일 (ex: 20240115)',
+    IsSteamVerified TINYINT(1) DEFAULT 0 COMMENT '스팀 확인 여부 (0:false, 1:true)',
+    IsManuallyModified TINYINT(1) DEFAULT 0 COMMENT '수동 변경 여부 (0:false, 1:true)'
+);
+
+-- 4. tb_GameLabel 테이블 생성 (가벼운 검색용 라벨)
+CREATE TABLE IF NOT EXISTS tb_GameLabel (
+    ShortName VARCHAR(50) PRIMARY KEY COMMENT '짧은 이름 (고유키, ex: pubg)',
+    Title VARCHAR(255) NOT NULL COMMENT '게임 제목',
+    GameIndex INT NOT NULL COMMENT 'GameInfo의 연결 고리',
+    SteamAppID INT NOT NULL COMMENT '스팀 앱 ID',
+    
+    -- 성능을 위해 GameIndex에 색인(Index) 걸어두기
+    INDEX idx_GameIndex (GameIndex)
+);

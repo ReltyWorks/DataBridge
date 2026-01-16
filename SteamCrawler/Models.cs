@@ -17,4 +17,12 @@
         public int Appid { get; set; }
         public string Name { get; set; }
     }
+
+    public class TempGameData
+    {
+        public int GameIndex { get; set; }    // 우리 DB용 고유 번호
+        public int SteamID { get; set; }      // 스팀 ID
+        public string Title { get; set; }     // 게임 제목
+        public string ShortName { get; set; } // 생성된 8자리 고유 이름 (키)
+    }
 }
