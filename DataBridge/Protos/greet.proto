@@ -1,21 +1,25 @@
-syntax = "proto3";
+﻿syntax = "proto3";
 
-option csharp_namespace = "DataBridge";
+option csharp_namespace = "DataBridge"; 
 
 package greet;
 
-// The greeting service definition.
+// 구글의 HTTP 기능을 가져옴
+import "google/api/annotations.proto";
+
 service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+    // PHP가 접속할 주소: /v1/greeter/이름
+    option (google.api.http) = {
+      get: "/v1/greeter/{name}"
+    };
+  }
 }
 
-// The request message containing the user's name.
 message HelloRequest {
   string name = 1;
 }
 
-// The response message containing the greetings.
 message HelloReply {
   string message = 1;
 }

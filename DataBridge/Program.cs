@@ -1,4 +1,4 @@
-using DataBridge.Services;
+ï»¿using DataBridge.Services;
 
 namespace DataBridge
 {
@@ -8,20 +8,19 @@ namespace DataBridge
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // [ÇÙ½É 1] gRPC ¼­ºñ½º¿¡ JSON Æ®·£½ºÄÚµù ±â´É Ãß°¡
-            // ÀÌ ÇÑ ÁÙÀÌ ¾øÀ¸¸é PHP¿¡¼­ Á¢¼Ó ºÒ°¡´É
+            // gRPC ì„œë¹„ìŠ¤ì— JSON íŠ¸ëœìŠ¤ì½”ë”© ê¸°ëŠ¥ ì¶”ê°€
             builder.Services.AddGrpc().AddJsonTranscoding();
 
             var app = builder.Build();
 
-            // [ÇÙ½É 2] HTTP ¿äÃ» ÆÄÀÌÇÁ¶óÀÎ ±¸¼º
-            // °³¹ß È¯°æÀÌ ¾Æ´Ï´õ¶óµµ gRPC ¸®ÇÃ·º¼ÇÀ» ÄÑµÎ¸é µğ¹ö±ë(Postman µî)¿¡ ÁÁÀ½
+            // HTTP ìš”ì²­ íŒŒì´í”„ë¼ì¸ êµ¬ì„±
+            // ê°œë°œ í™˜ê²½ì´ ì•„ë‹ˆë”ë¼ë„ gRPC ë¦¬í”Œë ‰ì…˜ì„ ì¼œë‘ë©´ ë””ë²„ê¹…(Postman ë“±)ì— ì¢‹ìŒ
             if (app.Environment.IsDevelopment())
             {
-                // app.MapGrpcReflectionService(); // (³ªÁß¿¡ ¸®ÇÃ·º¼Ç ÆĞÅ°Áö Ãß°¡ ½Ã ÁÖ¼® ÇØÁ¦)
+                // app.MapGrpcReflectionService(); // (ë‚˜ì¤‘ì— ë¦¬í”Œë ‰ì…˜ íŒ¨í‚¤ì§€ ì¶”ê°€ ì‹œ ì£¼ì„ í•´ì œ)
             }
 
-            // ¼­ºñ½º ¸ÅÇÎ (GreeterService´Â ±âº» ÅÛÇÃ¸´¿¡ Æ÷ÇÔµÈ ¿¹Á¦, ³ªÁß¿¡ ¿ì¸® °É·Î ±³Ã¼)
+            // ì„œë¹„ìŠ¤ ë§¤í•‘ (GreeterServiceëŠ” ê¸°ë³¸ í…œí”Œë¦¿ì— í¬í•¨ëœ ì˜ˆì œ, ë‚˜ì¤‘ì— ìš°ë¦¬ ê±¸ë¡œ êµì²´)
             app.MapGrpcService<GreeterService>();
 
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
