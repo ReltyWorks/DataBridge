@@ -2,7 +2,8 @@
 {
     public class GameInfo()
     {
-        public int GameIndex { get; set; } // 불변
+        // Key: GameIndex (int) -> Value: GameInfo
+        // public int GameIndex { get; set; }
         public int SteamAppID { get; set; } // 불변
         public string Title { get; set; } // 불변
         public string Developer { get; set; } 
@@ -15,14 +16,10 @@
 
     public class GameLabel()
     {
-        // 1. 짧은 이름은 고유해야 함
-        // 2. 짧은 이름은 최소 8자부터 생성
-        // 3. 짤은 이름은 공백없이 생성
-        // 4. 정식 이름을 가지고 앞의 8자리로 생성
-        // 5. 생성시 겹친다면, 뒤에 한자리씩 추가해서 겹치지 않을때까지 추가해서 생성
-        public string ShortName { get; set; } // 불변
-        public string Title { get; set; } // 불변
-        public int GameIndex { get; set; } // 불변
-        public int SteamAppID { get; set; } // 불변
+        // Key: SearchName (string) -> Value: GameLabel
+        // public string SearchName { get; set; }
+        public string Title { get; set; }
+        public int GameIndex { get; set; }
+        public int SteamAppID { get; set; }
     }
 }

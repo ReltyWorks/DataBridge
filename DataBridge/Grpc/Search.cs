@@ -25,23 +25,23 @@ namespace DataBridge.Search {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgxzZWFyY2gucHJvdG8SBlNlYXJjaBocZ29vZ2xlL2FwaS9hbm5vdGF0aW9u",
-            "cy5wcm90byImChBTaG9ydE5hbWVSZXF1ZXN0EhIKCnNob3J0X25hbWUYASAB",
-            "KAkiJgoQR2FtZUluZGV4UmVxdWVzdBISCgpnYW1lX2luZGV4GAEgASgFInIK",
-            "EUdhbWVMYWJlbFJlc3BvbnNlEhAKCGlzX2ZvdW5kGAEgASgIEhIKCnNob3J0",
-            "X25hbWUYAiABKAkSDQoFdGl0bGUYAyABKAkSEgoKZ2FtZV9pbmRleBgEIAEo",
-            "BRIUCgxzdGVhbV9hcHBfaWQYBSABKAUy6QEKDVNlYXJjaFNlcnZpY2USbQoS",
-            "R2V0R2FtZUJ5U2hvcnROYW1lEhguU2VhcmNoLlNob3J0TmFtZVJlcXVlc3Qa",
-            "GS5TZWFyY2guR2FtZUxhYmVsUmVzcG9uc2UiIoLT5JMCHBIaL3NlYXJjaC9z",
-            "aG9ydC97c2hvcnRfbmFtZX0SaQoOR2V0R2FtZUJ5SW5kZXgSGC5TZWFyY2gu",
-            "R2FtZUluZGV4UmVxdWVzdBoZLlNlYXJjaC5HYW1lTGFiZWxSZXNwb25zZSIi",
-            "gtPkkwIcEhovc2VhcmNoL2luZGV4L3tnYW1lX2luZGV4fUIUqgIRRGF0YUJy",
-            "aWRnZS5TZWFyY2hiBnByb3RvMw=="));
+            "cy5wcm90byIoChFTZWFyY2hOYW1lUmVxdWVzdBITCgtzZWFyY2hfbmFtZRgB",
+            "IAEoCSImChBHYW1lSW5kZXhSZXF1ZXN0EhIKCmdhbWVfaW5kZXgYASABKAUi",
+            "cwoRR2FtZUxhYmVsUmVzcG9uc2USEAoIaXNfZm91bmQYASABKAgSEwoLc2Vh",
+            "cmNoX25hbWUYAiABKAkSDQoFdGl0bGUYAyABKAkSEgoKZ2FtZV9pbmRleBgE",
+            "IAEoBRIUCgxzdGVhbV9hcHBfaWQYBSABKAUy6wEKDVNlYXJjaFNlcnZpY2US",
+            "bwoTR2V0R2FtZUJ5U2VhcmNoTmFtZRIZLlNlYXJjaC5TZWFyY2hOYW1lUmVx",
+            "dWVzdBoZLlNlYXJjaC5HYW1lTGFiZWxSZXNwb25zZSIigtPkkwIcEhovc2Vh",
+            "cmNoL25hbWUve3NlYXJjaF9uYW1lfRJpCg5HZXRHYW1lQnlJbmRleBIYLlNl",
+            "YXJjaC5HYW1lSW5kZXhSZXF1ZXN0GhkuU2VhcmNoLkdhbWVMYWJlbFJlc3Bv",
+            "bnNlIiKC0+STAhwSGi9zZWFyY2gvaW5kZXgve2dhbWVfaW5kZXh9QhSqAhFE",
+            "YXRhQnJpZGdlLlNlYXJjaGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Api.AnnotationsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.ShortNameRequest), global::DataBridge.Search.ShortNameRequest.Parser, new[]{ "ShortName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.SearchNameRequest), global::DataBridge.Search.SearchNameRequest.Parser, new[]{ "SearchName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameIndexRequest), global::DataBridge.Search.GameIndexRequest.Parser, new[]{ "GameIndex" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameLabelResponse), global::DataBridge.Search.GameLabelResponse.Parser, new[]{ "IsFound", "ShortName", "Title", "GameIndex", "SteamAppId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameLabelResponse), global::DataBridge.Search.GameLabelResponse.Parser, new[]{ "IsFound", "SearchName", "Title", "GameIndex", "SteamAppId" }, null, null, null, null)
           }));
     }
     #endregion
@@ -49,16 +49,16 @@ namespace DataBridge.Search {
   }
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class ShortNameRequest : pb::IMessage<ShortNameRequest>
+  public sealed partial class SearchNameRequest : pb::IMessage<SearchNameRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ShortNameRequest> _parser = new pb::MessageParser<ShortNameRequest>(() => new ShortNameRequest());
+    private static readonly pb::MessageParser<SearchNameRequest> _parser = new pb::MessageParser<SearchNameRequest>(() => new SearchNameRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ShortNameRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<SearchNameRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -74,7 +74,7 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ShortNameRequest() {
+    public SearchNameRequest() {
       OnConstruction();
     }
 
@@ -82,45 +82,45 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ShortNameRequest(ShortNameRequest other) : this() {
-      shortName_ = other.shortName_;
+    public SearchNameRequest(SearchNameRequest other) : this() {
+      searchName_ = other.searchName_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ShortNameRequest Clone() {
-      return new ShortNameRequest(this);
+    public SearchNameRequest Clone() {
+      return new SearchNameRequest(this);
     }
 
-    /// <summary>Field number for the "short_name" field.</summary>
-    public const int ShortNameFieldNumber = 1;
-    private string shortName_ = "";
+    /// <summary>Field number for the "search_name" field.</summary>
+    public const int SearchNameFieldNumber = 1;
+    private string searchName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ShortName {
-      get { return shortName_; }
+    public string SearchName {
+      get { return searchName_; }
       set {
-        shortName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        searchName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ShortNameRequest);
+      return Equals(other as SearchNameRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ShortNameRequest other) {
+    public bool Equals(SearchNameRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (ShortName != other.ShortName) return false;
+      if (SearchName != other.SearchName) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -128,7 +128,7 @@ namespace DataBridge.Search {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ShortName.Length != 0) hash ^= ShortName.GetHashCode();
+      if (SearchName.Length != 0) hash ^= SearchName.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -147,9 +147,9 @@ namespace DataBridge.Search {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ShortName.Length != 0) {
+      if (SearchName.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(ShortName);
+        output.WriteString(SearchName);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -161,9 +161,9 @@ namespace DataBridge.Search {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ShortName.Length != 0) {
+      if (SearchName.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(ShortName);
+        output.WriteString(SearchName);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -175,8 +175,8 @@ namespace DataBridge.Search {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ShortName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ShortName);
+      if (SearchName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SearchName);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -186,12 +186,12 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ShortNameRequest other) {
+    public void MergeFrom(SearchNameRequest other) {
       if (other == null) {
         return;
       }
-      if (other.ShortName.Length != 0) {
-        ShortName = other.ShortName;
+      if (other.SearchName.Length != 0) {
+        SearchName = other.SearchName;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -213,7 +213,7 @@ namespace DataBridge.Search {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            ShortName = input.ReadString();
+            SearchName = input.ReadString();
             break;
           }
         }
@@ -236,7 +236,7 @@ namespace DataBridge.Search {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            ShortName = input.ReadString();
+            SearchName = input.ReadString();
             break;
           }
         }
@@ -480,7 +480,7 @@ namespace DataBridge.Search {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GameLabelResponse(GameLabelResponse other) : this() {
       isFound_ = other.isFound_;
-      shortName_ = other.shortName_;
+      searchName_ = other.searchName_;
       title_ = other.title_;
       gameIndex_ = other.gameIndex_;
       steamAppId_ = other.steamAppId_;
@@ -505,15 +505,15 @@ namespace DataBridge.Search {
       }
     }
 
-    /// <summary>Field number for the "short_name" field.</summary>
-    public const int ShortNameFieldNumber = 2;
-    private string shortName_ = "";
+    /// <summary>Field number for the "search_name" field.</summary>
+    public const int SearchNameFieldNumber = 2;
+    private string searchName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ShortName {
-      get { return shortName_; }
+    public string SearchName {
+      get { return searchName_; }
       set {
-        shortName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        searchName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -569,7 +569,7 @@ namespace DataBridge.Search {
         return true;
       }
       if (IsFound != other.IsFound) return false;
-      if (ShortName != other.ShortName) return false;
+      if (SearchName != other.SearchName) return false;
       if (Title != other.Title) return false;
       if (GameIndex != other.GameIndex) return false;
       if (SteamAppId != other.SteamAppId) return false;
@@ -581,7 +581,7 @@ namespace DataBridge.Search {
     public override int GetHashCode() {
       int hash = 1;
       if (IsFound != false) hash ^= IsFound.GetHashCode();
-      if (ShortName.Length != 0) hash ^= ShortName.GetHashCode();
+      if (SearchName.Length != 0) hash ^= SearchName.GetHashCode();
       if (Title.Length != 0) hash ^= Title.GetHashCode();
       if (GameIndex != 0) hash ^= GameIndex.GetHashCode();
       if (SteamAppId != 0) hash ^= SteamAppId.GetHashCode();
@@ -607,9 +607,9 @@ namespace DataBridge.Search {
         output.WriteRawTag(8);
         output.WriteBool(IsFound);
       }
-      if (ShortName.Length != 0) {
+      if (SearchName.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(ShortName);
+        output.WriteString(SearchName);
       }
       if (Title.Length != 0) {
         output.WriteRawTag(26);
@@ -637,9 +637,9 @@ namespace DataBridge.Search {
         output.WriteRawTag(8);
         output.WriteBool(IsFound);
       }
-      if (ShortName.Length != 0) {
+      if (SearchName.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(ShortName);
+        output.WriteString(SearchName);
       }
       if (Title.Length != 0) {
         output.WriteRawTag(26);
@@ -666,8 +666,8 @@ namespace DataBridge.Search {
       if (IsFound != false) {
         size += 1 + 1;
       }
-      if (ShortName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ShortName);
+      if (SearchName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SearchName);
       }
       if (Title.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
@@ -693,8 +693,8 @@ namespace DataBridge.Search {
       if (other.IsFound != false) {
         IsFound = other.IsFound;
       }
-      if (other.ShortName.Length != 0) {
-        ShortName = other.ShortName;
+      if (other.SearchName.Length != 0) {
+        SearchName = other.SearchName;
       }
       if (other.Title.Length != 0) {
         Title = other.Title;
@@ -729,7 +729,7 @@ namespace DataBridge.Search {
             break;
           }
           case 18: {
-            ShortName = input.ReadString();
+            SearchName = input.ReadString();
             break;
           }
           case 26: {
@@ -768,7 +768,7 @@ namespace DataBridge.Search {
             break;
           }
           case 18: {
-            ShortName = input.ReadString();
+            SearchName = input.ReadString();
             break;
           }
           case 26: {

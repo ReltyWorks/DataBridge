@@ -8,14 +8,14 @@ package Search;
 import "google/api/annotations.proto";
 
 service SearchService {
-  // 1. 얕은 탐색 (주소: /v1/game/short/검색어)
-  rpc GetGameByShortName (ShortNameRequest) returns (GameLabelResponse) {
+  // 1. 얕은 탐색 (주소: /search/name/검색어)
+  rpc GetGameBySearchName (SearchNameRequest) returns (GameLabelResponse) {
     option (google.api.http) = {
-      get: "/search/short/{short_name}"
+      get: "/search/name/{search_name}"
     };
   }
 
-  // 2. 깊은 탐색 (주소: /v1/game/index/번호)
+  // 2. 깊은 탐색 (주소: /search/index/번호)
   rpc GetGameByIndex (GameIndexRequest) returns (GameLabelResponse) {
     option (google.api.http) = {
       get: "/search/index/{game_index}"
@@ -25,8 +25,8 @@ service SearchService {
 
 // --- 메시지 정의 ---
 
-message ShortNameRequest {
-  string short_name = 1;
+message SearchNameRequest {
+  string search_name = 1;
 }
 
 message GameIndexRequest {
@@ -35,7 +35,7 @@ message GameIndexRequest {
 
 message GameLabelResponse {
   bool is_found = 1;
-  string short_name = 2;
+  string search_name = 2;
   string title = 3;
   int32 game_index = 4;
   int32 steam_app_id = 5;
