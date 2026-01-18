@@ -8,19 +8,21 @@ namespace SteamCrawler
         {
             List<TempGameData> resultList = new List<TempGameData>();
 
-            // 1. 파일이 있는지 확인
+            // 1. 파일 확인
             if (!File.Exists(Definition.NEW_ARRIVAL_FILE))
             {
                 Console.WriteLine($"[Error] 파일이 없습니다: {Definition.NEW_ARRIVAL_FILE}");
                 return resultList;
             }
 
-            // 2. DB에서 기초 정보 로딩 (Start Index, 기존 숏네임들)
-            int currentIndex = DbManager.GetLastGameIndex() + 1; // 마지막 번호 + 1부터 시작
-            HashSet<string> existingShortNames = DbManager.GetAllShortNames();
+            // 2. DB에서 기초 정보 로딩
+            int currentIndex = DbManager.GetLastGameIndex() + 1;
+
+            // [변경] 기존 SearchName들을 로드
+            HashSet<string> existingSearchNames = DbManager.GetAllSearchNames();
 
             Console.WriteLine($"[Info] 시작 인덱스: {currentIndex}");
-            Console.WriteLine($"[Info] 기존 숏네임 개수: {existingShortNames.Count}개 로드됨.");
+            Console.WriteLine($"[Info] 기존 서치네임 개수: {existingSearchNames.Count}개 로드됨.");
 
             // 3. 파일 읽기
             string[] lines = File.ReadAllLines(Definition.NEW_ARRIVAL_FILE);
@@ -29,39 +31,48 @@ namespace SteamCrawler
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
-                // 포맷: "10_Counter-Strike" -> '_' 기준으로 2개로만 나눔
                 string[] parts = line.Split('_', 2);
                 if (parts.Length < 2) continue;
 
                 if (int.TryParse(parts[0], out int steamId))
                 {
-                    string rawTitle = parts[1];
+                    string rawTitle = parts[1]; // 원본 제목
 
-                    // 한글, 영어, 숫자만 남기고 싹 날려버리기
-                    string cleanTitle = Regex.Replace(rawTitle, @"[^a-zA-Z0-9가-힣]", "");
+                    // ---------------------------------------------------------
+                    // [Step A] 검색용 이름(SearchName) 만들기
+                    // ---------------------------------------------------------
 
-                    // 1. 다 지웠더니 남는 게 없다? (순수 중국어, 일본어, 특수문자 등) -> 갖다버려 (Skip)
-                    if (string.IsNullOrWhiteSpace(cleanTitle))
+                    // 1. 특수문자 제거 후 바로 '소문자 변환' (.ToLower())
+                    // 이제 'PUBG' -> 'pubg', 'NieR' -> 'nier'가 됨
+                    string cleanNameBase = Regex.Replace(rawTitle, @"[^\p{L}\p{N}]", "").ToLower();
+
+                    // 2. 빈 값 체크
+                    if (string.IsNullOrWhiteSpace(cleanNameBase))
+                        cleanNameBase = $"unknowngame{steamId}";
+
+                    // 3. SearchName 생성
+                    string searchName = GenerateUniqueSearchName(cleanNameBase, existingSearchNames);
+
+                    // ---------------------------------------------------------
+                    // [Step B] 상세 정보용 제목(Title) 다듬기
+                    // ---------------------------------------------------------
+
+                    // 원본을 쓰되, DB 컬럼(255) 터짐 방지를 위해 250자에서 안전하게 자름
+                    string finalTitle = rawTitle;
+                    if (finalTitle.Length > 250)
                     {
-                        continue;
+                        finalTitle = finalTitle.Substring(0, 250);
                     }
 
-                    // 2. 혹시 정제된 것도 255자가 넘으면 자르기 (안전장치)
-                    if (cleanTitle.Length > 250)
-                    {
-                        cleanTitle = cleanTitle.Substring(0, 250); // 미친새끼들
-                    }
-
-                    // 3. 숏네임 생성 (정제된 cleanTitle 기반으로 생성)
-                    string shortName = GenerateUniqueShortName(cleanTitle, existingShortNames);
-
-                    // 4. 리스트 추가 (제목도 깔끔한 cleanTitle로 저장)
+                    // ---------------------------------------------------------
+                    // [Step C] 리스트 추가
+                    // ---------------------------------------------------------
                     resultList.Add(new TempGameData
                     {
                         GameIndex = currentIndex,
                         SteamID = steamId,
-                        Title = cleanTitle,
-                        ShortName = shortName
+                        Title = finalTitle,      // 원본 (잘림)
+                        SearchName = searchName  // 규격화된 키
                     });
 
                     currentIndex++;
@@ -72,25 +83,29 @@ namespace SteamCrawler
             return resultList;
         }
 
-        // 숏네임 생성 로직 (핵심)
-        private static string GenerateUniqueShortName(string title, HashSet<string> existingNames)
+        // [핵심] SearchName 생성 로직 (32자 고정 규칙)
+        private static string GenerateUniqueSearchName(string baseName, HashSet<string> existingNames)
         {
-            // 1. 앞 8글자 자르기
-            string baseName = title.Length > 8 ? title.Substring(0, 8) : title;
+            // 1. 일단 30자까지만 사용 (뒤에 숫자 2자리 붙여야 하니까)
+            string safeBase = baseName.Length > 30 ? baseName.Substring(0, 30) : baseName;
 
-            // 2. 중복 검사 및 번호 붙이기
-            string finalName = baseName;
-            int count = 1;
+            // 2. 숫자 붙여가며 중복 검사, 무조건 00부터 시작
+            int counter = 0;
+            string finalName = $"{safeBase}{counter:D2}"; // D2 -> "00", "01" ...
 
-            // 3. HashSet에 있는지 확인 (O(1) 속도)
+            // 3. HashSet에 있는지 확인
             while (existingNames.Contains(finalName))
             {
-                // 겹치면 뒤에 숫자 붙임 (Mooni -> Mooni1 -> Mooni2)
-                finalName = $"{baseName}{count}";
-                count++;
+                counter++;
+                // 숫자가 늘어나면 다시 조합 (PUBG00 -> PUBG01)
+                // 혹시라도 99 넘어가면? 3자리 늘어나겠지만(100), 
+                // VARCHAR(32)니까 30+3=33 되어서 터질 수 있음.
+                // 하지만 현실적으로 이름 겹치는 게 100개 넘을 일은 극히 드묾.
+                // TODO : 예외 처리 필요.
+                finalName = $"{safeBase}{counter:D2}";
             }
 
-            // 4. 확정된 이름을 HashSet에 등록 (다음 루프에서 중복 방지)
+            // 4. 확정된 이름을 등록
             existingNames.Add(finalName);
 
             return finalName;

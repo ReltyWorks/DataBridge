@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS tb_GameInfo (
 
 -- 4. tb_GameLabel 테이블 생성 (가벼운 검색용 라벨)
 CREATE TABLE IF NOT EXISTS tb_GameLabel (
-    ShortName VARCHAR(50) PRIMARY KEY COMMENT '짧은 이름 (고유키, ex: pubg)',
+    SearchName VARCHAR(32) PRIMARY KEY COMMENT '짧은 이름 (고유키, ex: pubg)',
     Title VARCHAR(255) NOT NULL COMMENT '게임 제목',
     GameIndex INT NOT NULL COMMENT 'GameInfo의 연결 고리',
     SteamAppID INT NOT NULL COMMENT '스팀 앱 ID',

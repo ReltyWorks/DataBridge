@@ -23,9 +23,7 @@ namespace SteamCrawler
 
                     // DB가 비어있으면 DBNull이 나옴 -> 0으로 처리
                     if (result != DBNull.Value && result != null)
-                    {
                         maxIndex = Convert.ToInt32(result);
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -36,7 +34,7 @@ namespace SteamCrawler
         }
 
         // 2. 이미 존재하는 ShortName 싹 긁어오기 (HashSet으로 리턴)
-        public static HashSet<string> GetAllShortNames()
+        public static HashSet<string> GetAllSearchNames()
         {
             HashSet<string> names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -45,16 +43,14 @@ namespace SteamCrawler
                 try
                 {
                     conn.Open();
-                    string query = $"SELECT {Definition.DB_FIELD_SHORTNAME} FROM {Definition.LABEL_TABLE_NAME}";
+                    string query = $"SELECT {Definition.DB_FIELD_SEARCHNAME} FROM {Definition.LABEL_TABLE_NAME}";
 
                     MySqlCommand cmd = new MySqlCommand(query, conn);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
-                        {
                             names.Add(reader.GetString(0));
-                        }
                     }
                 }
                 catch (Exception ex)
@@ -112,12 +108,12 @@ namespace SteamCrawler
                         // 쿼리 2: tb_GameLabel (검색용 라벨)
                         cmdLabel.CommandText = $@"
                             INSERT INTO {Definition.LABEL_TABLE_NAME} 
-                            ({Definition.DB_FIELD_SHORTNAME}, {Definition.DB_FIELD_TITLE}, {Definition.DB_FIELD_GAMEINDEX}, {Definition.DB_FIELD_STEAMID}) 
+                            ({Definition.DB_FIELD_SEARCHNAME}, {Definition.DB_FIELD_TITLE}, {Definition.DB_FIELD_GAMEINDEX}, {Definition.DB_FIELD_STEAMID}) 
                             VALUES 
-                            (@shortName, @title, @idx, @steamId)";
+                            (@searchName, @title, @idx, @steamId)";
 
                         cmdLabel.Parameters.Clear();
-                        cmdLabel.Parameters.AddWithValue("@shortName", data.ShortName);
+                        cmdLabel.Parameters.AddWithValue("@searchName", data.SearchName);
                         cmdLabel.Parameters.AddWithValue("@title", data.Title);
                         cmdLabel.Parameters.AddWithValue("@idx", data.GameIndex);
                         cmdLabel.Parameters.AddWithValue("@steamId", data.SteamID);

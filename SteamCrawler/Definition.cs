@@ -22,6 +22,6 @@
         public const string DB_FIELD_GAMEINDEX = "GameIndex";
         public const string DB_FIELD_STEAMID = "SteamAppID";
         public const string DB_FIELD_TITLE = "Title";
-        public const string DB_FIELD_SHORTNAME = "ShortName";
+        public const string DB_FIELD_SEARCHNAME = "SearchName";
     }
 }
