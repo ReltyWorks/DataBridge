@@ -4,7 +4,7 @@ namespace SteamCrawler
 {
     public static class DbManager
     {
-        private static string connectionString = $"Server=localhost;Database={Definition.DB_SCHEMA_NAME};Uid={Definition.DB_USERNAME};Pwd={Definition.DB_PASSWORD};";
+        private static string connectionString = Definition.CONNECTION_STRING;
 
         // 1. 마지막 GameIndex 가져오기 (없으면 0 리턴)
         public static int GetLastGameIndex()
