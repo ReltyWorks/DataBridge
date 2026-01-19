@@ -2,10 +2,9 @@
 {
     public class GameInfo()
     {
-        // Key: GameIndex (int) -> Value: GameInfo
-        // public int GameIndex { get; set; }
+        public int GameIndex { get; set; } // 불변
         public int SteamAppID { get; set; } // 불변
-        public string Title { get; set; } // 불변
+        public string Title { get; set; }
         public string Developer { get; set; } 
         public string Publisher { get; set; }
         public string Genre { get; set; }
@@ -16,10 +15,9 @@
 
     public class GameLabel()
     {
-        // Key: SearchName (string) -> Value: GameLabel
-        // public string SearchName { get; set; }
+        public string SearchName { get; set; } // 불변
         public string Title { get; set; }
-        public int GameIndex { get; set; }
-        public int SteamAppID { get; set; }
+        public int GameIndex { get; set; } // 불변
+        public int SteamAppID { get; set; } // 불변
     }
 }

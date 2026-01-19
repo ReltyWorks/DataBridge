@@ -12,6 +12,7 @@ namespace DataBridge
             // 1. gRPC 서비스에 JSON Transcoding 서비스 추가
             builder.Services.AddGrpc().AddJsonTranscoding();
             builder.Services.AddGrpcReflection(); // 리플렉션 서비스
+            builder.Services.AddMemoryCache(); // 메모리 캐시 서비스
 
             // 2. 매니저
             builder.Services.AddSingleton<SearchManager>();
