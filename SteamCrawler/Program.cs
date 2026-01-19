@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using DotNetEnv;
+using System.Diagnostics;
 
 namespace SteamCrawler
 {
@@ -6,6 +7,8 @@ namespace SteamCrawler
     {
         static async Task Main(string[] args)
         {
+            Env.Load();
+
             Console.WriteLine("=== SteamCrawler Main Logic ===");
 
             // ----------------------------------------------------

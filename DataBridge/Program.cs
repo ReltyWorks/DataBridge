@@ -1,5 +1,6 @@
-﻿using DataBridge.Services;
-using DataBridge.Manager;
+﻿using DataBridge.Manager;
+using DataBridge.Services;
+using DotNetEnv;
 
 namespace DataBridge
 {
@@ -7,6 +8,8 @@ namespace DataBridge
     {
         public static async Task Main(string[] args)
         {
+            Env.Load();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // 1. gRPC 서비스에 JSON Transcoding 서비스 추가

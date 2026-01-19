@@ -1,5 +1,6 @@
-﻿## 빌드 결과물
+﻿## ignore
 [Oo]bj/
 [Bb]in/
 [Dd]ata/
 .vs/
+.env
