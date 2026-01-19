@@ -7,36 +7,75 @@ package Search;
 // HTTP 트랜스코딩 필수 임포트
 import "google/api/annotations.proto";
 
-service SearchService {
-  // 1. 얕은 탐색 (주소: /search/name/검색어)
-  rpc GetGameBySearchName (SearchNameRequest) returns (GameLabelResponse) {
-    option (google.api.http) = {
-      get: "/search/name/{search_name}"
-    };
-  }
+service SearchService
+{
+    // 1. 얕은 탐색 (Autocomplete)
+    // Pruning Trie를 사용해 인기순 상위 5개 즉시 반환
+    // URL 예시: GET /search/autocomplete/batt
+    rpc GetAutocomplete (SearchQueryRequest) returns (GameListResponse)
+    {
+        option (google.api.http) = { get: "/search/name/{search_name}" };
+    }
 
-  // 2. 깊은 탐색 (주소: /search/index/번호)
-  rpc GetGameByIndex (GameIndexRequest) returns (GameLabelResponse) {
-    option (google.api.http) = {
-      get: "/search/index/{game_index}"
-    };
-  }
+    // 2. 깊은 탐색 (Full Search)
+    // 전체 리스트를 뒤져서(AND/OR) 조건에 맞는 결과 반환
+    // URL 예시: GET /v1/search/full/battle ground
+    rpc GetFullSearch (SearchQueryRequest) returns (GameListResponse)
+    {
+        option (google.api.http) = { get: "/search/full/{query}" };
+    }
+
+    // 3. 상세 정보 조회 (Detail)
+    // 사용자가 리스트를 클릭했을 때 호출 (캐시 -> DB -> 스팀)
+    // URL 예시: GET /search/game/105
+    rpc GetGameDetail (GameIndexRequest) returns (GameInfoResponse)
+    {
+        option (google.api.http) = { get: "/search/game/{game_index}" };
+    }
 }
 
-// --- 메시지 정의 ---
 
-message SearchNameRequest {
-  string search_name = 1;
+
+// --- 요청 메시지 (Request) ---
+
+message SearchQueryRequest
+{
+    string query = 1; // 검색어 (ex: "ba", "battle ground")
 }
 
-message GameIndexRequest {
-  int32 game_index = 1;
+message GameIndexRequest
+{
+    int32 game_index = 1; // 클릭한 게임의 고유 번호
 }
 
-message GameLabelResponse {
-  bool is_found = 1;
-  string search_name = 2;
-  string title = 3;
-  int32 game_index = 4;
-  int32 steam_app_id = 5;
+
+
+// --- 응답 메시지 (Response) ---
+
+// 검색 결과 리스트 (Autocomplete, FullSearch 공용)
+message GameListResponse
+{
+    repeated GameLabel results = 1; // 여러 개를 담아서 보냄
+}
+
+// 리스트에 들어갈 알맹이 (GameLabel)
+message GameLabel {
+    string search_name = 1;   // 검색용 키 (battleground00)
+    string title = 2;         // 표시용 제목 (PUBG: BATTLEGROUNDS)
+    int32 game_index = 3;     // 고유 번호
+    int32 steam_app_id = 4;   // 스팀 ID
+    int32 weight = 5;         // 가중치 (인기도)
+}
+
+// 상세 정보 (클릭 시 보여줄 정보)
+message GameInfoResponse {
+    bool is_found = 1;        // 데이터 존재 여부
+    int32 game_index = 2;
+    int32 steam_app_id = 3;
+    string title = 4;
+    string developer = 5;
+    string publisher = 6;
+    string genre = 7;
+    int32 release_date = 8;
+    bool is_steam_verified = 9;
 }

@@ -19,5 +19,6 @@
         public string Title { get; set; }
         public int GameIndex { get; set; } // 불변
         public int SteamAppID { get; set; } // 불변
+        public int Weight { get; set; } // 검색 가중치
     }
 }

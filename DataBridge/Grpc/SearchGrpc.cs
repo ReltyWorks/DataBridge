@@ -46,27 +46,37 @@ namespace DataBridge.Search {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::DataBridge.Search.SearchNameRequest> __Marshaller_Search_SearchNameRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DataBridge.Search.SearchNameRequest.Parser));
+    static readonly grpc::Marshaller<global::DataBridge.Search.SearchQueryRequest> __Marshaller_Search_SearchQueryRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DataBridge.Search.SearchQueryRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::DataBridge.Search.GameLabelResponse> __Marshaller_Search_GameLabelResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DataBridge.Search.GameLabelResponse.Parser));
+    static readonly grpc::Marshaller<global::DataBridge.Search.GameListResponse> __Marshaller_Search_GameListResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DataBridge.Search.GameListResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::DataBridge.Search.GameIndexRequest> __Marshaller_Search_GameIndexRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DataBridge.Search.GameIndexRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::DataBridge.Search.GameInfoResponse> __Marshaller_Search_GameInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DataBridge.Search.GameInfoResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::DataBridge.Search.SearchNameRequest, global::DataBridge.Search.GameLabelResponse> __Method_GetGameBySearchName = new grpc::Method<global::DataBridge.Search.SearchNameRequest, global::DataBridge.Search.GameLabelResponse>(
+    static readonly grpc::Method<global::DataBridge.Search.SearchQueryRequest, global::DataBridge.Search.GameListResponse> __Method_GetAutocomplete = new grpc::Method<global::DataBridge.Search.SearchQueryRequest, global::DataBridge.Search.GameListResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "GetGameBySearchName",
-        __Marshaller_Search_SearchNameRequest,
-        __Marshaller_Search_GameLabelResponse);
+        "GetAutocomplete",
+        __Marshaller_Search_SearchQueryRequest,
+        __Marshaller_Search_GameListResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::DataBridge.Search.GameIndexRequest, global::DataBridge.Search.GameLabelResponse> __Method_GetGameByIndex = new grpc::Method<global::DataBridge.Search.GameIndexRequest, global::DataBridge.Search.GameLabelResponse>(
+    static readonly grpc::Method<global::DataBridge.Search.SearchQueryRequest, global::DataBridge.Search.GameListResponse> __Method_GetFullSearch = new grpc::Method<global::DataBridge.Search.SearchQueryRequest, global::DataBridge.Search.GameListResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "GetGameByIndex",
+        "GetFullSearch",
+        __Marshaller_Search_SearchQueryRequest,
+        __Marshaller_Search_GameListResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::DataBridge.Search.GameIndexRequest, global::DataBridge.Search.GameInfoResponse> __Method_GetGameDetail = new grpc::Method<global::DataBridge.Search.GameIndexRequest, global::DataBridge.Search.GameInfoResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetGameDetail",
         __Marshaller_Search_GameIndexRequest,
-        __Marshaller_Search_GameLabelResponse);
+        __Marshaller_Search_GameInfoResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -79,25 +89,43 @@ namespace DataBridge.Search {
     public abstract partial class SearchServiceBase
     {
       /// <summary>
-      /// 1. 얕은 탐색 (주소: /search/name/검색어)
+      /// 1. 얕은 탐색 (Autocomplete)
+      /// Pruning Trie를 사용해 인기순 상위 5개 즉시 반환
+      /// URL 예시: GET /search/autocomplete/batt
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::DataBridge.Search.GameLabelResponse> GetGameBySearchName(global::DataBridge.Search.SearchNameRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::DataBridge.Search.GameListResponse> GetAutocomplete(global::DataBridge.Search.SearchQueryRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
       /// <summary>
-      /// 2. 깊은 탐색 (주소: /search/index/번호)
+      /// 2. 깊은 탐색 (Full Search)
+      /// 전체 리스트를 뒤져서(AND/OR) 조건에 맞는 결과 반환
+      /// URL 예시: GET /v1/search/full/battle ground
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::DataBridge.Search.GameLabelResponse> GetGameByIndex(global::DataBridge.Search.GameIndexRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::DataBridge.Search.GameListResponse> GetFullSearch(global::DataBridge.Search.SearchQueryRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// 3. 상세 정보 조회 (Detail)
+      /// 사용자가 리스트를 클릭했을 때 호출 (캐시 -> DB -> 스팀)
+      /// URL 예시: GET /search/game/105
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::DataBridge.Search.GameInfoResponse> GetGameDetail(global::DataBridge.Search.GameIndexRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -110,8 +138,9 @@ namespace DataBridge.Search {
     public static grpc::ServerServiceDefinition BindService(SearchServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_GetGameBySearchName, serviceImpl.GetGameBySearchName)
-          .AddMethod(__Method_GetGameByIndex, serviceImpl.GetGameByIndex).Build();
+          .AddMethod(__Method_GetAutocomplete, serviceImpl.GetAutocomplete)
+          .AddMethod(__Method_GetFullSearch, serviceImpl.GetFullSearch)
+          .AddMethod(__Method_GetGameDetail, serviceImpl.GetGameDetail).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -121,8 +150,9 @@ namespace DataBridge.Search {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, SearchServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_GetGameBySearchName, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DataBridge.Search.SearchNameRequest, global::DataBridge.Search.GameLabelResponse>(serviceImpl.GetGameBySearchName));
-      serviceBinder.AddMethod(__Method_GetGameByIndex, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DataBridge.Search.GameIndexRequest, global::DataBridge.Search.GameLabelResponse>(serviceImpl.GetGameByIndex));
+      serviceBinder.AddMethod(__Method_GetAutocomplete, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DataBridge.Search.SearchQueryRequest, global::DataBridge.Search.GameListResponse>(serviceImpl.GetAutocomplete));
+      serviceBinder.AddMethod(__Method_GetFullSearch, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DataBridge.Search.SearchQueryRequest, global::DataBridge.Search.GameListResponse>(serviceImpl.GetFullSearch));
+      serviceBinder.AddMethod(__Method_GetGameDetail, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DataBridge.Search.GameIndexRequest, global::DataBridge.Search.GameInfoResponse>(serviceImpl.GetGameDetail));
     }
 
   }

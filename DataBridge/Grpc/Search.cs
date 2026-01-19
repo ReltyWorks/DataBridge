@@ -25,23 +25,32 @@ namespace DataBridge.Search {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgxzZWFyY2gucHJvdG8SBlNlYXJjaBocZ29vZ2xlL2FwaS9hbm5vdGF0aW9u",
-            "cy5wcm90byIoChFTZWFyY2hOYW1lUmVxdWVzdBITCgtzZWFyY2hfbmFtZRgB",
-            "IAEoCSImChBHYW1lSW5kZXhSZXF1ZXN0EhIKCmdhbWVfaW5kZXgYASABKAUi",
-            "cwoRR2FtZUxhYmVsUmVzcG9uc2USEAoIaXNfZm91bmQYASABKAgSEwoLc2Vh",
-            "cmNoX25hbWUYAiABKAkSDQoFdGl0bGUYAyABKAkSEgoKZ2FtZV9pbmRleBgE",
-            "IAEoBRIUCgxzdGVhbV9hcHBfaWQYBSABKAUy6wEKDVNlYXJjaFNlcnZpY2US",
-            "bwoTR2V0R2FtZUJ5U2VhcmNoTmFtZRIZLlNlYXJjaC5TZWFyY2hOYW1lUmVx",
-            "dWVzdBoZLlNlYXJjaC5HYW1lTGFiZWxSZXNwb25zZSIigtPkkwIcEhovc2Vh",
-            "cmNoL25hbWUve3NlYXJjaF9uYW1lfRJpCg5HZXRHYW1lQnlJbmRleBIYLlNl",
-            "YXJjaC5HYW1lSW5kZXhSZXF1ZXN0GhkuU2VhcmNoLkdhbWVMYWJlbFJlc3Bv",
-            "bnNlIiKC0+STAhwSGi9zZWFyY2gvaW5kZXgve2dhbWVfaW5kZXh9QhSqAhFE",
-            "YXRhQnJpZGdlLlNlYXJjaGIGcHJvdG8z"));
+            "cy5wcm90byIjChJTZWFyY2hRdWVyeVJlcXVlc3QSDQoFcXVlcnkYASABKAki",
+            "JgoQR2FtZUluZGV4UmVxdWVzdBISCgpnYW1lX2luZGV4GAEgASgFIjYKEEdh",
+            "bWVMaXN0UmVzcG9uc2USIgoHcmVzdWx0cxgBIAMoCzIRLlNlYXJjaC5HYW1l",
+            "TGFiZWwiaQoJR2FtZUxhYmVsEhMKC3NlYXJjaF9uYW1lGAEgASgJEg0KBXRp",
+            "dGxlGAIgASgJEhIKCmdhbWVfaW5kZXgYAyABKAUSFAoMc3RlYW1fYXBwX2lk",
+            "GAQgASgFEg4KBndlaWdodBgFIAEoBSLDAQoQR2FtZUluZm9SZXNwb25zZRIQ",
+            "Cghpc19mb3VuZBgBIAEoCBISCgpnYW1lX2luZGV4GAIgASgFEhQKDHN0ZWFt",
+            "X2FwcF9pZBgDIAEoBRINCgV0aXRsZRgEIAEoCRIRCglkZXZlbG9wZXIYBSAB",
+            "KAkSEQoJcHVibGlzaGVyGAYgASgJEg0KBWdlbnJlGAcgASgJEhQKDHJlbGVh",
+            "c2VfZGF0ZRgIIAEoBRIZChFpc19zdGVhbV92ZXJpZmllZBgJIAEoCDLJAgoN",
+            "U2VhcmNoU2VydmljZRJrCg9HZXRBdXRvY29tcGxldGUSGi5TZWFyY2guU2Vh",
+            "cmNoUXVlcnlSZXF1ZXN0GhguU2VhcmNoLkdhbWVMaXN0UmVzcG9uc2UiIoLT",
+            "5JMCHBIaL3NlYXJjaC9uYW1lL3tzZWFyY2hfbmFtZX0SYwoNR2V0RnVsbFNl",
+            "YXJjaBIaLlNlYXJjaC5TZWFyY2hRdWVyeVJlcXVlc3QaGC5TZWFyY2guR2Ft",
+            "ZUxpc3RSZXNwb25zZSIcgtPkkwIWEhQvc2VhcmNoL2Z1bGwve3F1ZXJ5fRJm",
+            "Cg1HZXRHYW1lRGV0YWlsEhguU2VhcmNoLkdhbWVJbmRleFJlcXVlc3QaGC5T",
+            "ZWFyY2guR2FtZUluZm9SZXNwb25zZSIhgtPkkwIbEhkvc2VhcmNoL2dhbWUv",
+            "e2dhbWVfaW5kZXh9QhSqAhFEYXRhQnJpZGdlLlNlYXJjaGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Api.AnnotationsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.SearchNameRequest), global::DataBridge.Search.SearchNameRequest.Parser, new[]{ "SearchName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.SearchQueryRequest), global::DataBridge.Search.SearchQueryRequest.Parser, new[]{ "Query" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameIndexRequest), global::DataBridge.Search.GameIndexRequest.Parser, new[]{ "GameIndex" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameLabelResponse), global::DataBridge.Search.GameLabelResponse.Parser, new[]{ "IsFound", "SearchName", "Title", "GameIndex", "SteamAppId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameListResponse), global::DataBridge.Search.GameListResponse.Parser, new[]{ "Results" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameLabel), global::DataBridge.Search.GameLabel.Parser, new[]{ "SearchName", "Title", "GameIndex", "SteamAppId", "Weight" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameInfoResponse), global::DataBridge.Search.GameInfoResponse.Parser, new[]{ "IsFound", "GameIndex", "SteamAppId", "Title", "Developer", "Publisher", "Genre", "ReleaseDate", "IsSteamVerified" }, null, null, null, null)
           }));
     }
     #endregion
@@ -49,16 +58,16 @@ namespace DataBridge.Search {
   }
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class SearchNameRequest : pb::IMessage<SearchNameRequest>
+  public sealed partial class SearchQueryRequest : pb::IMessage<SearchQueryRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<SearchNameRequest> _parser = new pb::MessageParser<SearchNameRequest>(() => new SearchNameRequest());
+    private static readonly pb::MessageParser<SearchQueryRequest> _parser = new pb::MessageParser<SearchQueryRequest>(() => new SearchQueryRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<SearchNameRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<SearchQueryRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -74,7 +83,7 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SearchNameRequest() {
+    public SearchQueryRequest() {
       OnConstruction();
     }
 
@@ -82,45 +91,48 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SearchNameRequest(SearchNameRequest other) : this() {
-      searchName_ = other.searchName_;
+    public SearchQueryRequest(SearchQueryRequest other) : this() {
+      query_ = other.query_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SearchNameRequest Clone() {
-      return new SearchNameRequest(this);
+    public SearchQueryRequest Clone() {
+      return new SearchQueryRequest(this);
     }
 
-    /// <summary>Field number for the "search_name" field.</summary>
-    public const int SearchNameFieldNumber = 1;
-    private string searchName_ = "";
+    /// <summary>Field number for the "query" field.</summary>
+    public const int QueryFieldNumber = 1;
+    private string query_ = "";
+    /// <summary>
+    /// 검색어 (ex: "ba", "battle ground")
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string SearchName {
-      get { return searchName_; }
+    public string Query {
+      get { return query_; }
       set {
-        searchName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        query_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as SearchNameRequest);
+      return Equals(other as SearchQueryRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(SearchNameRequest other) {
+    public bool Equals(SearchQueryRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (SearchName != other.SearchName) return false;
+      if (Query != other.Query) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -128,7 +140,7 @@ namespace DataBridge.Search {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (SearchName.Length != 0) hash ^= SearchName.GetHashCode();
+      if (Query.Length != 0) hash ^= Query.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -147,9 +159,9 @@ namespace DataBridge.Search {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (SearchName.Length != 0) {
+      if (Query.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(SearchName);
+        output.WriteString(Query);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -161,9 +173,9 @@ namespace DataBridge.Search {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (SearchName.Length != 0) {
+      if (Query.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(SearchName);
+        output.WriteString(Query);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -175,8 +187,8 @@ namespace DataBridge.Search {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (SearchName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(SearchName);
+      if (Query.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Query);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -186,12 +198,12 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(SearchNameRequest other) {
+    public void MergeFrom(SearchQueryRequest other) {
       if (other == null) {
         return;
       }
-      if (other.SearchName.Length != 0) {
-        SearchName = other.SearchName;
+      if (other.Query.Length != 0) {
+        Query = other.Query;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -213,7 +225,7 @@ namespace DataBridge.Search {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            SearchName = input.ReadString();
+            Query = input.ReadString();
             break;
           }
         }
@@ -236,7 +248,7 @@ namespace DataBridge.Search {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            SearchName = input.ReadString();
+            Query = input.ReadString();
             break;
           }
         }
@@ -294,6 +306,9 @@ namespace DataBridge.Search {
     /// <summary>Field number for the "game_index" field.</summary>
     public const int GameIndexFieldNumber = 1;
     private int gameIndex_;
+    /// <summary>
+    /// 클릭한 게임의 고유 번호
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int GameIndex {
@@ -444,17 +459,20 @@ namespace DataBridge.Search {
 
   }
 
+  /// <summary>
+  /// 검색 결과 리스트 (Autocomplete, FullSearch 공용)
+  /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class GameLabelResponse : pb::IMessage<GameLabelResponse>
+  public sealed partial class GameListResponse : pb::IMessage<GameListResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GameLabelResponse> _parser = new pb::MessageParser<GameLabelResponse>(() => new GameLabelResponse());
+    private static readonly pb::MessageParser<GameListResponse> _parser = new pb::MessageParser<GameListResponse>(() => new GameListResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GameLabelResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GameListResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -470,7 +488,7 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameLabelResponse() {
+    public GameListResponse() {
       OnConstruction();
     }
 
@@ -478,36 +496,220 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameLabelResponse(GameLabelResponse other) : this() {
-      isFound_ = other.isFound_;
-      searchName_ = other.searchName_;
-      title_ = other.title_;
-      gameIndex_ = other.gameIndex_;
-      steamAppId_ = other.steamAppId_;
+    public GameListResponse(GameListResponse other) : this() {
+      results_ = other.results_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameLabelResponse Clone() {
-      return new GameLabelResponse(this);
+    public GameListResponse Clone() {
+      return new GameListResponse(this);
     }
 
-    /// <summary>Field number for the "is_found" field.</summary>
-    public const int IsFoundFieldNumber = 1;
-    private bool isFound_;
+    /// <summary>Field number for the "results" field.</summary>
+    public const int ResultsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::DataBridge.Search.GameLabel> _repeated_results_codec
+        = pb::FieldCodec.ForMessage(10, global::DataBridge.Search.GameLabel.Parser);
+    private readonly pbc::RepeatedField<global::DataBridge.Search.GameLabel> results_ = new pbc::RepeatedField<global::DataBridge.Search.GameLabel>();
+    /// <summary>
+    /// 여러 개를 담아서 보냄
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsFound {
-      get { return isFound_; }
-      set {
-        isFound_ = value;
+    public pbc::RepeatedField<global::DataBridge.Search.GameLabel> Results {
+      get { return results_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GameListResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GameListResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
       }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!results_.Equals(other.results_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= results_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      results_.WriteTo(output, _repeated_results_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      results_.WriteTo(ref output, _repeated_results_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      size += results_.CalculateSize(_repeated_results_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GameListResponse other) {
+      if (other == null) {
+        return;
+      }
+      results_.Add(other.results_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            results_.AddEntriesFrom(input, _repeated_results_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            results_.AddEntriesFrom(ref input, _repeated_results_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// 리스트에 들어갈 알맹이 (GameLabel)
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class GameLabel : pb::IMessage<GameLabel>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GameLabel> _parser = new pb::MessageParser<GameLabel>(() => new GameLabel());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GameLabel> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::DataBridge.Search.SearchReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GameLabel() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GameLabel(GameLabel other) : this() {
+      searchName_ = other.searchName_;
+      title_ = other.title_;
+      gameIndex_ = other.gameIndex_;
+      steamAppId_ = other.steamAppId_;
+      weight_ = other.weight_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GameLabel Clone() {
+      return new GameLabel(this);
     }
 
     /// <summary>Field number for the "search_name" field.</summary>
-    public const int SearchNameFieldNumber = 2;
+    public const int SearchNameFieldNumber = 1;
     private string searchName_ = "";
+    /// <summary>
+    /// 검색용 키 (battleground00)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string SearchName {
@@ -518,8 +720,11 @@ namespace DataBridge.Search {
     }
 
     /// <summary>Field number for the "title" field.</summary>
-    public const int TitleFieldNumber = 3;
+    public const int TitleFieldNumber = 2;
     private string title_ = "";
+    /// <summary>
+    /// 표시용 제목 (PUBG: BATTLEGROUNDS)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Title {
@@ -530,7 +735,360 @@ namespace DataBridge.Search {
     }
 
     /// <summary>Field number for the "game_index" field.</summary>
-    public const int GameIndexFieldNumber = 4;
+    public const int GameIndexFieldNumber = 3;
+    private int gameIndex_;
+    /// <summary>
+    /// 고유 번호
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int GameIndex {
+      get { return gameIndex_; }
+      set {
+        gameIndex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "steam_app_id" field.</summary>
+    public const int SteamAppIdFieldNumber = 4;
+    private int steamAppId_;
+    /// <summary>
+    /// 스팀 ID
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SteamAppId {
+      get { return steamAppId_; }
+      set {
+        steamAppId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "weight" field.</summary>
+    public const int WeightFieldNumber = 5;
+    private int weight_;
+    /// <summary>
+    /// 가중치 (인기도)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Weight {
+      get { return weight_; }
+      set {
+        weight_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GameLabel);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GameLabel other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SearchName != other.SearchName) return false;
+      if (Title != other.Title) return false;
+      if (GameIndex != other.GameIndex) return false;
+      if (SteamAppId != other.SteamAppId) return false;
+      if (Weight != other.Weight) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SearchName.Length != 0) hash ^= SearchName.GetHashCode();
+      if (Title.Length != 0) hash ^= Title.GetHashCode();
+      if (GameIndex != 0) hash ^= GameIndex.GetHashCode();
+      if (SteamAppId != 0) hash ^= SteamAppId.GetHashCode();
+      if (Weight != 0) hash ^= Weight.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (SearchName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(SearchName);
+      }
+      if (Title.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Title);
+      }
+      if (GameIndex != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(GameIndex);
+      }
+      if (SteamAppId != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(SteamAppId);
+      }
+      if (Weight != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Weight);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (SearchName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(SearchName);
+      }
+      if (Title.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Title);
+      }
+      if (GameIndex != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(GameIndex);
+      }
+      if (SteamAppId != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(SteamAppId);
+      }
+      if (Weight != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Weight);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (SearchName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SearchName);
+      }
+      if (Title.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
+      }
+      if (GameIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(GameIndex);
+      }
+      if (SteamAppId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SteamAppId);
+      }
+      if (Weight != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Weight);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GameLabel other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SearchName.Length != 0) {
+        SearchName = other.SearchName;
+      }
+      if (other.Title.Length != 0) {
+        Title = other.Title;
+      }
+      if (other.GameIndex != 0) {
+        GameIndex = other.GameIndex;
+      }
+      if (other.SteamAppId != 0) {
+        SteamAppId = other.SteamAppId;
+      }
+      if (other.Weight != 0) {
+        Weight = other.Weight;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            SearchName = input.ReadString();
+            break;
+          }
+          case 18: {
+            Title = input.ReadString();
+            break;
+          }
+          case 24: {
+            GameIndex = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            SteamAppId = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            Weight = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            SearchName = input.ReadString();
+            break;
+          }
+          case 18: {
+            Title = input.ReadString();
+            break;
+          }
+          case 24: {
+            GameIndex = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            SteamAppId = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            Weight = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// 상세 정보 (클릭 시 보여줄 정보)
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class GameInfoResponse : pb::IMessage<GameInfoResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GameInfoResponse> _parser = new pb::MessageParser<GameInfoResponse>(() => new GameInfoResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GameInfoResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::DataBridge.Search.SearchReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GameInfoResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GameInfoResponse(GameInfoResponse other) : this() {
+      isFound_ = other.isFound_;
+      gameIndex_ = other.gameIndex_;
+      steamAppId_ = other.steamAppId_;
+      title_ = other.title_;
+      developer_ = other.developer_;
+      publisher_ = other.publisher_;
+      genre_ = other.genre_;
+      releaseDate_ = other.releaseDate_;
+      isSteamVerified_ = other.isSteamVerified_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GameInfoResponse Clone() {
+      return new GameInfoResponse(this);
+    }
+
+    /// <summary>Field number for the "is_found" field.</summary>
+    public const int IsFoundFieldNumber = 1;
+    private bool isFound_;
+    /// <summary>
+    /// 데이터 존재 여부
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsFound {
+      get { return isFound_; }
+      set {
+        isFound_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "game_index" field.</summary>
+    public const int GameIndexFieldNumber = 2;
     private int gameIndex_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -542,7 +1100,7 @@ namespace DataBridge.Search {
     }
 
     /// <summary>Field number for the "steam_app_id" field.</summary>
-    public const int SteamAppIdFieldNumber = 5;
+    public const int SteamAppIdFieldNumber = 3;
     private int steamAppId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -553,15 +1111,87 @@ namespace DataBridge.Search {
       }
     }
 
+    /// <summary>Field number for the "title" field.</summary>
+    public const int TitleFieldNumber = 4;
+    private string title_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as GameLabelResponse);
+    public string Title {
+      get { return title_; }
+      set {
+        title_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "developer" field.</summary>
+    public const int DeveloperFieldNumber = 5;
+    private string developer_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Developer {
+      get { return developer_; }
+      set {
+        developer_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "publisher" field.</summary>
+    public const int PublisherFieldNumber = 6;
+    private string publisher_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Publisher {
+      get { return publisher_; }
+      set {
+        publisher_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "genre" field.</summary>
+    public const int GenreFieldNumber = 7;
+    private string genre_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Genre {
+      get { return genre_; }
+      set {
+        genre_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "release_date" field.</summary>
+    public const int ReleaseDateFieldNumber = 8;
+    private int releaseDate_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ReleaseDate {
+      get { return releaseDate_; }
+      set {
+        releaseDate_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "is_steam_verified" field.</summary>
+    public const int IsSteamVerifiedFieldNumber = 9;
+    private bool isSteamVerified_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsSteamVerified {
+      get { return isSteamVerified_; }
+      set {
+        isSteamVerified_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GameLabelResponse other) {
+    public override bool Equals(object other) {
+      return Equals(other as GameInfoResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GameInfoResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -569,10 +1199,14 @@ namespace DataBridge.Search {
         return true;
       }
       if (IsFound != other.IsFound) return false;
-      if (SearchName != other.SearchName) return false;
-      if (Title != other.Title) return false;
       if (GameIndex != other.GameIndex) return false;
       if (SteamAppId != other.SteamAppId) return false;
+      if (Title != other.Title) return false;
+      if (Developer != other.Developer) return false;
+      if (Publisher != other.Publisher) return false;
+      if (Genre != other.Genre) return false;
+      if (ReleaseDate != other.ReleaseDate) return false;
+      if (IsSteamVerified != other.IsSteamVerified) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -581,10 +1215,14 @@ namespace DataBridge.Search {
     public override int GetHashCode() {
       int hash = 1;
       if (IsFound != false) hash ^= IsFound.GetHashCode();
-      if (SearchName.Length != 0) hash ^= SearchName.GetHashCode();
-      if (Title.Length != 0) hash ^= Title.GetHashCode();
       if (GameIndex != 0) hash ^= GameIndex.GetHashCode();
       if (SteamAppId != 0) hash ^= SteamAppId.GetHashCode();
+      if (Title.Length != 0) hash ^= Title.GetHashCode();
+      if (Developer.Length != 0) hash ^= Developer.GetHashCode();
+      if (Publisher.Length != 0) hash ^= Publisher.GetHashCode();
+      if (Genre.Length != 0) hash ^= Genre.GetHashCode();
+      if (ReleaseDate != 0) hash ^= ReleaseDate.GetHashCode();
+      if (IsSteamVerified != false) hash ^= IsSteamVerified.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -607,21 +1245,37 @@ namespace DataBridge.Search {
         output.WriteRawTag(8);
         output.WriteBool(IsFound);
       }
-      if (SearchName.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(SearchName);
-      }
-      if (Title.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Title);
-      }
       if (GameIndex != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(16);
         output.WriteInt32(GameIndex);
       }
       if (SteamAppId != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(24);
         output.WriteInt32(SteamAppId);
+      }
+      if (Title.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Title);
+      }
+      if (Developer.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(Developer);
+      }
+      if (Publisher.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Publisher);
+      }
+      if (Genre.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(Genre);
+      }
+      if (ReleaseDate != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(ReleaseDate);
+      }
+      if (IsSteamVerified != false) {
+        output.WriteRawTag(72);
+        output.WriteBool(IsSteamVerified);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -637,21 +1291,37 @@ namespace DataBridge.Search {
         output.WriteRawTag(8);
         output.WriteBool(IsFound);
       }
-      if (SearchName.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(SearchName);
-      }
-      if (Title.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Title);
-      }
       if (GameIndex != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(16);
         output.WriteInt32(GameIndex);
       }
       if (SteamAppId != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(24);
         output.WriteInt32(SteamAppId);
+      }
+      if (Title.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Title);
+      }
+      if (Developer.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(Developer);
+      }
+      if (Publisher.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Publisher);
+      }
+      if (Genre.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(Genre);
+      }
+      if (ReleaseDate != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(ReleaseDate);
+      }
+      if (IsSteamVerified != false) {
+        output.WriteRawTag(72);
+        output.WriteBool(IsSteamVerified);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -666,17 +1336,29 @@ namespace DataBridge.Search {
       if (IsFound != false) {
         size += 1 + 1;
       }
-      if (SearchName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(SearchName);
-      }
-      if (Title.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
-      }
       if (GameIndex != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(GameIndex);
       }
       if (SteamAppId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(SteamAppId);
+      }
+      if (Title.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
+      }
+      if (Developer.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Developer);
+      }
+      if (Publisher.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Publisher);
+      }
+      if (Genre.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Genre);
+      }
+      if (ReleaseDate != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ReleaseDate);
+      }
+      if (IsSteamVerified != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -686,24 +1368,36 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GameLabelResponse other) {
+    public void MergeFrom(GameInfoResponse other) {
       if (other == null) {
         return;
       }
       if (other.IsFound != false) {
         IsFound = other.IsFound;
       }
-      if (other.SearchName.Length != 0) {
-        SearchName = other.SearchName;
-      }
-      if (other.Title.Length != 0) {
-        Title = other.Title;
-      }
       if (other.GameIndex != 0) {
         GameIndex = other.GameIndex;
       }
       if (other.SteamAppId != 0) {
         SteamAppId = other.SteamAppId;
+      }
+      if (other.Title.Length != 0) {
+        Title = other.Title;
+      }
+      if (other.Developer.Length != 0) {
+        Developer = other.Developer;
+      }
+      if (other.Publisher.Length != 0) {
+        Publisher = other.Publisher;
+      }
+      if (other.Genre.Length != 0) {
+        Genre = other.Genre;
+      }
+      if (other.ReleaseDate != 0) {
+        ReleaseDate = other.ReleaseDate;
+      }
+      if (other.IsSteamVerified != false) {
+        IsSteamVerified = other.IsSteamVerified;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -728,20 +1422,36 @@ namespace DataBridge.Search {
             IsFound = input.ReadBool();
             break;
           }
-          case 18: {
-            SearchName = input.ReadString();
-            break;
-          }
-          case 26: {
-            Title = input.ReadString();
-            break;
-          }
-          case 32: {
+          case 16: {
             GameIndex = input.ReadInt32();
             break;
           }
-          case 40: {
+          case 24: {
             SteamAppId = input.ReadInt32();
+            break;
+          }
+          case 34: {
+            Title = input.ReadString();
+            break;
+          }
+          case 42: {
+            Developer = input.ReadString();
+            break;
+          }
+          case 50: {
+            Publisher = input.ReadString();
+            break;
+          }
+          case 58: {
+            Genre = input.ReadString();
+            break;
+          }
+          case 64: {
+            ReleaseDate = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            IsSteamVerified = input.ReadBool();
             break;
           }
         }
@@ -767,20 +1477,36 @@ namespace DataBridge.Search {
             IsFound = input.ReadBool();
             break;
           }
-          case 18: {
-            SearchName = input.ReadString();
-            break;
-          }
-          case 26: {
-            Title = input.ReadString();
-            break;
-          }
-          case 32: {
+          case 16: {
             GameIndex = input.ReadInt32();
             break;
           }
-          case 40: {
+          case 24: {
             SteamAppId = input.ReadInt32();
+            break;
+          }
+          case 34: {
+            Title = input.ReadString();
+            break;
+          }
+          case 42: {
+            Developer = input.ReadString();
+            break;
+          }
+          case 50: {
+            Publisher = input.ReadString();
+            break;
+          }
+          case 58: {
+            Genre = input.ReadString();
+            break;
+          }
+          case 64: {
+            ReleaseDate = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            IsSteamVerified = input.ReadBool();
             break;
           }
         }
