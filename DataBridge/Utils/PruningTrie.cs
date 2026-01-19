@@ -70,7 +70,7 @@
             }
 
             // 해당 노드가 기억하고 있던 Top 5 리턴 (이미 정렬되어 있음)
-            return node.TopRecommendations;
+            return node.TopRecommendations.ToList(); // 방어적 복사
         }
 
         // 리스트 관리 헬퍼 (항상 Top 5 유지 & 가중치 정렬)

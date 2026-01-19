@@ -256,9 +256,7 @@ namespace DataBridge.Manager
                     }
 
                     // 출시일 (복잡함: "release_date": { "date": "2024년 1월 15일" })
-                    // 파싱 귀찮으니 일단 0으로 두거나, 간단한 변환 로직 필요. 
-                    // 여기선 스킵하거나 간단히 처리
-                    info.ReleaseDate = 0; // 날짜 파싱은 추후 정교화 필요
+                    info.ReleaseDate = 0; // TODO : 날짜 파싱은 추후 정교화 필요
 
                     info.IsSteamVerified = true;
                     return true; // 업데이트 성공
