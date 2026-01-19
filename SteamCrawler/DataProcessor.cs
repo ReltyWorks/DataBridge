@@ -18,7 +18,7 @@ namespace SteamCrawler
             // 2. DB에서 기초 정보 로딩
             int currentIndex = DbManager.GetLastGameIndex() + 1;
 
-            // [변경] 기존 SearchName들을 로드
+            // 기존 SearchName들을 로드
             HashSet<string> existingSearchNames = DbManager.GetAllSearchNames();
 
             Console.WriteLine($"[Info] 시작 인덱스: {currentIndex}");
@@ -29,10 +29,12 @@ namespace SteamCrawler
 
             foreach (string line in lines)
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
 
                 string[] parts = line.Split('_', 2);
-                if (parts.Length < 2) continue;
+                if (parts.Length < 2)
+                    continue;
 
                 if (int.TryParse(parts[0], out int steamId))
                 {
@@ -60,9 +62,7 @@ namespace SteamCrawler
                     // 원본을 쓰되, DB 컬럼(255) 터짐 방지를 위해 250자에서 안전하게 자름
                     string finalTitle = rawTitle;
                     if (finalTitle.Length > 250)
-                    {
                         finalTitle = finalTitle.Substring(0, 250);
-                    }
 
                     // ---------------------------------------------------------
                     // [Step C] 리스트 추가

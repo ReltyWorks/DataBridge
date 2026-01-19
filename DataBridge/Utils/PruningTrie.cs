@@ -1,72 +1,103 @@
-﻿namespace DataBridge.Utils
+﻿namespace DataBridge.Search
 {
+    /// <summary> 가중치 기반 가지치기 트라이 </summary>
     public class PruningTrie
     {
+        // 트라이 노드 정의
         private class TrieNode
         {
-            // 자식 노드들 (다음 글자)
+            // 자식 노드들 (Key: 'a', 'b', '가'...)
             public Dictionary<char, TrieNode> Children = new();
 
-            // 핵심: 이 노드까지 쳤을 때 보여줄 '추천 리스트' (최대 10개)
-            // 여기에 11등부터는 아예 저장도 안 함.
+            // 이 노드까지 쳤을 때 보여줄 '추천 리스트' (최대 5개)
+            // 6등부터는 메모리에 저장 안 함 (Pruning)
             public List<GameLabel> TopRecommendations = new();
         }
 
-        private TrieNode _root = new TrieNode();
-        private const int MAX_DEPTH = 8; // 8글자 제한
-        private const int MAX_ITEMS = 10; // 리스트 크기 제한
+        private readonly TrieNode _root = new TrieNode();
 
-        // 1. 구축 (Insert)
-        public void Insert(GameLabel game, int weight)
+
+        // 1. 데이터 구축 (서버 켜질 때 호출)
+        public void Insert(GameLabel game)
         {
-            var node = _root;
-            string key = game.SearchName; // "pubg..."
+            if (string.IsNullOrWhiteSpace(game.SearchName)) return;
 
-            // 8글자까지만 노드 생성
-            int limit = Math.Min(key.Length, MAX_DEPTH);
+            var node = _root;
+            string key = game.SearchName; // 이미 소문자라고 가정
+
+            // 8글자까지만 노드 생성 (그 뒤는 짤림)
+            int limit = Math.Min(key.Length, Definition.TRIE_MAX_DEPTH);
 
             for (int i = 0; i < limit; i++)
             {
                 char c = key[i];
+
+                // 자식 노드가 없으면 생성
                 if (!node.Children.ContainsKey(c))
                     node.Children[c] = new TrieNode();
 
                 node = node.Children[c];
 
-                // Pruning 로직:
-                // 이 노드의 추천 리스트에 게임을 넣되,
-                // 인기도 순으로 정렬해서 10개가 넘어가면 꼴찌를 삭제
-                AddToTopList(node.TopRecommendations, game, weight);
+                // Pruning 로직, 노드를 지나갈 때마다 등록하는데, Top 5 안에 못 들면 버림
+                AddToTopList(node.TopRecommendations, game);
             }
         }
 
-        // 2. 검색
+        // 2. 검색 (Autocomplete)
         public List<GameLabel> Autocomplete(string query)
         {
-            // 8글자 넘어가면 8글자로 잘라버림
-            if (query.Length > MAX_DEPTH)
-                query = query.Substring(0, MAX_DEPTH);
+            if (string.IsNullOrWhiteSpace(query)) return new List<GameLabel>();
+
+            string key = query.ToLower().Trim();
+
+            // 8글자 넘어가면 8글자로 자름
+            if (key.Length > Definition.TRIE_MAX_DEPTH)
+            {
+                key = key.Substring(0, Definition.TRIE_MAX_DEPTH);
+            }
 
             var node = _root;
-            foreach (char c in query)
+
+            // 한 글자씩 따라 내려감
+            foreach (char c in key)
             {
                 if (!node.Children.TryGetValue(c, out var nextNode))
-                    return new List<GameLabel>(); // 매칭되는 거 없음
+                {
+                    // 끊긴 길이면 추천 결과 없음
+                    return new List<GameLabel>();
+                }
                 node = nextNode;
             }
 
-            // 해당 노드가 기억하고 있던 Top 10 리턴
+            // 해당 노드가 기억하고 있던 Top 5 리턴 (이미 정렬되어 있음)
             return node.TopRecommendations;
         }
 
-        // 리스트 관리 헬퍼
-        private void AddToTopList(List<GameLabel> list, GameLabel game, int weight)
+        // 리스트 관리 헬퍼 (항상 Top 5 유지 & 가중치 정렬)
+        private void AddToTopList(List<GameLabel> list, GameLabel game)
         {
-            // 일단 넣고
-            list.Add(game);
+            // 1. 리스트가 아직 꽉 안 찼으면 무조건 추가
+            if (list.Count < Definition.TRIE_MAX_ITEMS)
+            {
+                list.Add(game);
+                // 가중치 높은 순으로 정렬 (내림차순)
+                list.Sort((a, b) => b.Weight.CompareTo(a.Weight));
+            }
+            // 2. 리스트가 꽉 찼으면? 꼴찌랑 비교해서 이길 때만 교체
+            else
+            {
+                // 현재 꼴찌의 점수
+                int minWeight = list[list.Count - 1].Weight;
 
-            // TODO : 가중치 등으로 정렬 후 10개 넘으면 자르기
-            // ...
+                // 새로 들어온 녀석이 꼴찌보다 점수가 높으면?
+                if (game.Weight > minWeight)
+                {
+                    list.RemoveAt(list.Count - 1); // 꼴찌 삭제
+                    list.Add(game); // 새 녀석 추가
+                    list.Sort((a, b) => b.Weight.CompareTo(a.Weight)); // 다시 정렬
+                }
+                // 아니면? 그냥 무시 (Pruning)
+            }
         }
     }
 }

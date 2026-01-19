@@ -4,8 +4,13 @@ namespace DataBridge
 {
     public static class Definition
     {
-        public const string DB_SCHEMA_NAME = "DataBridgeDB";
+        public static readonly string DB_SCHEMA_NAME = DotNetEnvHelper.GetEnv("DB_SCHEMA_NAME");
         public static readonly string DB_USERNAME = DotNetEnvHelper.GetEnv("DB_USERNAME");
         public static readonly string DB_PASSWORD = DotNetEnvHelper.GetEnv("DB_PASSWORD");
+
+        public const string CONNECTION_STRING = "임시";
+
+        public const int TRIE_MAX_DEPTH = 8;  // 8글자 넘어가면 더 이상 트리 안 탐 (메모리 절약)
+        public const int TRIE_MAX_ITEMS = 5; // 자동완성 갯수
     }
 }

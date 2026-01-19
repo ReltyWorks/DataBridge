@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using DataBridge.Search; // PruningTrie 사용 위해 추가
+using Microsoft.Extensions.Caching.Memory;
 using MySql.Data.MySqlClient;
 using System.Collections.Concurrent;
 using System.Data;
@@ -8,16 +9,18 @@ namespace DataBridge.Manager
 {
     public class SearchManager
     {
-        // 1. 검색용 라벨 캐시 (서버 켜지면 전부 로딩)
+        // 1. 검색용 라벨 캐시 (Full Search & ID 조회용)
         private ConcurrentDictionary<string, GameLabel> _labelCache = new();
 
-        // 2. 상세 정보 캐시 (슬라이딩 만료 적용)
+        // 2. 자동완성용 트라이 엔진 (Autocomplete용)
+        private readonly PruningTrie _trieEngine = new();
+
+        // 3. 상세 정보 캐시
         private readonly IMemoryCache _infoCache;
 
-        // DB 접속 문자열
-        private string connectionString = $"Server=localhost;Database={Definition.DB_SCHEMA_NAME};Uid={Definition.DB_USERNAME};Pwd={Definition.DB_PASSWORD};";
+        // DB 접속 정보
+        private string connectionString = Definition.CONNECTION_STRING; // Definition에 합쳤다면 이렇게, 아니면 기존대로
 
-        // 스팀 API 호출용 클라이언트 (재사용)
         private static readonly HttpClient _httpClient = new HttpClient();
 
         public SearchManager(IMemoryCache memoryCache)
@@ -25,18 +28,115 @@ namespace DataBridge.Manager
             _infoCache = memoryCache;
         }
 
-        // --------------------------------------------------------------------------
-        // [핵심 기능] 게임 정보 가져오기 (캐시 -> DB -> 스팀(필요시))
-        // --------------------------------------------------------------------------
+        /// <summary> 데이터 초기 로딩 (리스트 + 트라이 동시 구축) </summary>
+        public async Task LoadGameData()
+        {
+            Console.WriteLine("[Manager] 데이터 로딩 시작...");
+
+            // Definition.CONNECTION_STRING이 아직 구현 안 됐다면 기존 하드코딩된 string 사용
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+
+                // Weight 컬럼 추가됨!
+                string queryLabel = "SELECT SearchName, Title, GameIndex, SteamAppID, Weight FROM tb_GameLabel";
+
+                using (var cmd = new MySqlCommand(queryLabel, conn))
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        string key = reader.GetString("SearchName");
+
+                        var label = new GameLabel
+                        {
+                            SearchName = key,
+                            Title = reader.GetString("Title"),
+                            GameIndex = reader.GetInt32("GameIndex"),
+                            SteamAppID = reader.GetInt32("SteamAppID"),
+                            Weight = reader.GetInt32("Weight") // ★ 가중치 로딩
+                        };
+
+                        // 1. 리스트 캐시에 추가 (Full Search용)
+                        _labelCache.TryAdd(key, label);
+
+                        // 2. 트라이 엔진에 추가 (Autocomplete용)
+                        _trieEngine.Insert(label);
+                    }
+                }
+            }
+            Console.WriteLine($"[Manager] 로딩 완료! (Total: {_labelCache.Count}개)");
+        }
+
+        /// <summary> 얕은 탐색 (Autocomplete) -> 트라이 사용 </summary>
+        public List<GameLabel> Autocomplete(string query)
+        {
+            // 트라이 엔진에게 위임 (이미 상위 5개 & 8글자 제한 로직 들어있음)
+            return _trieEngine.Autocomplete(query);
+        }
+
+        /// <summary> 깊은 탐색 (Full Search) -> 리스트 전수조사 </summary>
+        public List<GameLabel> FullSearch(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query)) return new List<GameLabel>();
+
+            string rawQuery = query.ToLower().Trim();
+            string[] orGroups = rawQuery.Split(',');
+
+            List<GameLabel> results = new List<GameLabel>();
+
+            foreach (var kvp in _labelCache)
+            {
+                string key = kvp.Key;
+                GameLabel data = kvp.Value;
+                bool isMatch = false;
+
+                foreach (string group in orGroups)
+                {
+                    if (string.IsNullOrWhiteSpace(group)) continue;
+                    string[] andKeywords = group.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    if (andKeywords.Length == 0) continue;
+
+                    bool allKeywordsMatched = true;
+                    foreach (string keyword in andKeywords)
+                    {
+                        if (!key.Contains(keyword))
+                        {
+                            allKeywordsMatched = false;
+                            break;
+                        }
+                    }
+
+                    if (allKeywordsMatched)
+                    {
+                        isMatch = true;
+                        break;
+                    }
+                }
+
+                if (isMatch) results.Add(data);
+            }
+
+            // Full Search 결과도 가중치 순으로 정렬해서 반환
+            results.Sort((a, b) => b.Weight.CompareTo(a.Weight));
+
+            return results;
+        }
+
+        /// <summary> 인덱스 조회 (라벨 캐시에서 찾기) </summary>
+        public GameLabel? GetLabelByIndex(int index)
+        {
+            return _labelCache.Values.FirstOrDefault(x => x.GameIndex == index);
+        }
+
+        /// <summary> 게임 정보 가져오기 (캐시 -> DB -> 스팀(필요시)) </summary>
         public async Task<GameInfo?> GetGameInfoAsync(int gameIndex)
         {
             string cacheKey = $"GameInfo_{gameIndex}";
 
             // 1. 캐시 확인 (슬라이딩 만료 자동 적용)
             if (_infoCache.TryGetValue(cacheKey, out GameInfo? info))
-            {
                 return info;
-            }
 
             // 2. 캐시에 없으면 DB/스팀 조회
             info = await FetchGameInfoFromDbOrSteam(gameIndex);
@@ -45,16 +145,14 @@ namespace DataBridge.Manager
             if (info != null)
             {
                 var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(10));
+                                                    .SetSlidingExpiration(TimeSpan.FromMinutes(10));
                 _infoCache.Set(cacheKey, info, cacheOptions);
             }
 
             return info;
         }
 
-        // --------------------------------------------------------------------------
-        // [내부 로직] DB 조회 및 스팀 업데이트
-        // --------------------------------------------------------------------------
+        // DB 조회 및 스팀 업데이트
         private async Task<GameInfo?> FetchGameInfoFromDbOrSteam(int index)
         {
             GameInfo? info = null;
@@ -172,87 +270,5 @@ namespace DataBridge.Manager
             }
             return false;
         }
-
-        // --------------------------------------------------------------------------
-        // [기능 1] 라벨 데이터만 초기 로딩 (GameInfo 로딩 삭제됨)
-        // --------------------------------------------------------------------------
-        public async Task LoadGameData()
-        {
-            Console.WriteLine("[Manager] 라벨 데이터 로딩 시작...");
-
-            using (var conn = new MySqlConnection(connectionString))
-            {
-                await conn.OpenAsync();
-
-                string queryLabel = $"SELECT SearchName, Title, GameIndex, SteamAppID FROM tb_GameLabel";
-                using (var cmd = new MySqlCommand(queryLabel, conn))
-                using (var reader = await cmd.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        string key = reader.GetString("SearchName");
-                        var label = new GameLabel
-                        {
-                            SearchName = key,
-                            Title = reader.GetString("Title"),
-                            GameIndex = reader.GetInt32("GameIndex"),
-                            SteamAppID = reader.GetInt32("SteamAppID")
-                        };
-                        _labelCache.TryAdd(key, label);
-                    }
-                }
-            }
-            Console.WriteLine($"[Manager] 로딩 완료! (Label: {_labelCache.Count}개)");
-        }
-
-        // [기능 2] 검색 (AND/OR 로직 유지)
-        public List<GameLabel> Search(string query)
-        {
-            if (string.IsNullOrWhiteSpace(query)) return new List<GameLabel>();
-            string rawQuery = query.ToLower().Trim();
-            string[] orGroups = rawQuery.Split(',');
-
-            List<GameLabel> results = new List<GameLabel>();
-
-            foreach (var kvp in _labelCache)
-            {
-                string key = kvp.Key;
-                GameLabel data = kvp.Value;
-                bool isMatch = false;
-
-                foreach (string group in orGroups)
-                {
-                    if (string.IsNullOrWhiteSpace(group)) continue;
-                    string[] andKeywords = group.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    if (andKeywords.Length == 0) continue;
-
-                    bool allKeywordsMatched = true;
-                    foreach (string keyword in andKeywords)
-                    {
-                        if (!key.Contains(keyword))
-                        {
-                            allKeywordsMatched = false;
-                            break;
-                        }
-                    }
-
-                    if (allKeywordsMatched)
-                    {
-                        isMatch = true;
-                        break;
-                    }
-                }
-
-                if (isMatch) results.Add(data);
-            }
-            return results;
-        }
-
-        // [기능 3] 인덱스 조회 (라벨 캐시에서 찾기)
-        public GameLabel? GetLabelByIndex(int index)
-        {
-            return _labelCache.Values.FirstOrDefault(x => x.GameIndex == index);
-        }
-
     }
 }

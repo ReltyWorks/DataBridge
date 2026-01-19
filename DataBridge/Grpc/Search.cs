@@ -26,30 +26,30 @@ namespace DataBridge.Search {
           string.Concat(
             "CgxzZWFyY2gucHJvdG8SBlNlYXJjaBocZ29vZ2xlL2FwaS9hbm5vdGF0aW9u",
             "cy5wcm90byIjChJTZWFyY2hRdWVyeVJlcXVlc3QSDQoFcXVlcnkYASABKAki",
-            "JgoQR2FtZUluZGV4UmVxdWVzdBISCgpnYW1lX2luZGV4GAEgASgFIjYKEEdh",
-            "bWVMaXN0UmVzcG9uc2USIgoHcmVzdWx0cxgBIAMoCzIRLlNlYXJjaC5HYW1l",
-            "TGFiZWwiaQoJR2FtZUxhYmVsEhMKC3NlYXJjaF9uYW1lGAEgASgJEg0KBXRp",
-            "dGxlGAIgASgJEhIKCmdhbWVfaW5kZXgYAyABKAUSFAoMc3RlYW1fYXBwX2lk",
-            "GAQgASgFEg4KBndlaWdodBgFIAEoBSLDAQoQR2FtZUluZm9SZXNwb25zZRIQ",
-            "Cghpc19mb3VuZBgBIAEoCBISCgpnYW1lX2luZGV4GAIgASgFEhQKDHN0ZWFt",
-            "X2FwcF9pZBgDIAEoBRINCgV0aXRsZRgEIAEoCRIRCglkZXZlbG9wZXIYBSAB",
-            "KAkSEQoJcHVibGlzaGVyGAYgASgJEg0KBWdlbnJlGAcgASgJEhQKDHJlbGVh",
-            "c2VfZGF0ZRgIIAEoBRIZChFpc19zdGVhbV92ZXJpZmllZBgJIAEoCDLJAgoN",
-            "U2VhcmNoU2VydmljZRJrCg9HZXRBdXRvY29tcGxldGUSGi5TZWFyY2guU2Vh",
-            "cmNoUXVlcnlSZXF1ZXN0GhguU2VhcmNoLkdhbWVMaXN0UmVzcG9uc2UiIoLT",
-            "5JMCHBIaL3NlYXJjaC9uYW1lL3tzZWFyY2hfbmFtZX0SYwoNR2V0RnVsbFNl",
-            "YXJjaBIaLlNlYXJjaC5TZWFyY2hRdWVyeVJlcXVlc3QaGC5TZWFyY2guR2Ft",
-            "ZUxpc3RSZXNwb25zZSIcgtPkkwIWEhQvc2VhcmNoL2Z1bGwve3F1ZXJ5fRJm",
-            "Cg1HZXRHYW1lRGV0YWlsEhguU2VhcmNoLkdhbWVJbmRleFJlcXVlc3QaGC5T",
-            "ZWFyY2guR2FtZUluZm9SZXNwb25zZSIhgtPkkwIbEhkvc2VhcmNoL2dhbWUv",
-            "e2dhbWVfaW5kZXh9QhSqAhFEYXRhQnJpZGdlLlNlYXJjaGIGcHJvdG8z"));
+            "JgoQR2FtZUluZGV4UmVxdWVzdBISCgpnYW1lX2luZGV4GAEgASgFIjIKEEdh",
+            "bWVMaXN0UmVzcG9uc2USHgoHcmVzdWx0cxgBIAMoCzINLlNlYXJjaC5MYWJl",
+            "bCJlCgVMYWJlbBITCgtzZWFyY2hfbmFtZRgBIAEoCRINCgV0aXRsZRgCIAEo",
+            "CRISCgpnYW1lX2luZGV4GAMgASgFEhQKDHN0ZWFtX2FwcF9pZBgEIAEoBRIO",
+            "CgZ3ZWlnaHQYBSABKAUiwwEKEEdhbWVJbmZvUmVzcG9uc2USEAoIaXNfZm91",
+            "bmQYASABKAgSEgoKZ2FtZV9pbmRleBgCIAEoBRIUCgxzdGVhbV9hcHBfaWQY",
+            "AyABKAUSDQoFdGl0bGUYBCABKAkSEQoJZGV2ZWxvcGVyGAUgASgJEhEKCXB1",
+            "Ymxpc2hlchgGIAEoCRINCgVnZW5yZRgHIAEoCRIUCgxyZWxlYXNlX2RhdGUY",
+            "CCABKAUSGQoRaXNfc3RlYW1fdmVyaWZpZWQYCSABKAgyyQIKDVNlYXJjaFNl",
+            "cnZpY2USawoPR2V0QXV0b2NvbXBsZXRlEhouU2VhcmNoLlNlYXJjaFF1ZXJ5",
+            "UmVxdWVzdBoYLlNlYXJjaC5HYW1lTGlzdFJlc3BvbnNlIiKC0+STAhwSGi9z",
+            "ZWFyY2gvbmFtZS97c2VhcmNoX25hbWV9EmMKDUdldEZ1bGxTZWFyY2gSGi5T",
+            "ZWFyY2guU2VhcmNoUXVlcnlSZXF1ZXN0GhguU2VhcmNoLkdhbWVMaXN0UmVz",
+            "cG9uc2UiHILT5JMCFhIUL3NlYXJjaC9mdWxsL3txdWVyeX0SZgoNR2V0R2Ft",
+            "ZURldGFpbBIYLlNlYXJjaC5HYW1lSW5kZXhSZXF1ZXN0GhguU2VhcmNoLkdh",
+            "bWVJbmZvUmVzcG9uc2UiIYLT5JMCGxIZL3NlYXJjaC9nYW1lL3tnYW1lX2lu",
+            "ZGV4fUIUqgIRRGF0YUJyaWRnZS5TZWFyY2hiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Api.AnnotationsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.SearchQueryRequest), global::DataBridge.Search.SearchQueryRequest.Parser, new[]{ "Query" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameIndexRequest), global::DataBridge.Search.GameIndexRequest.Parser, new[]{ "GameIndex" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameListResponse), global::DataBridge.Search.GameListResponse.Parser, new[]{ "Results" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameLabel), global::DataBridge.Search.GameLabel.Parser, new[]{ "SearchName", "Title", "GameIndex", "SteamAppId", "Weight" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.Label), global::DataBridge.Search.Label.Parser, new[]{ "SearchName", "Title", "GameIndex", "SteamAppId", "Weight" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::DataBridge.Search.GameInfoResponse), global::DataBridge.Search.GameInfoResponse.Parser, new[]{ "IsFound", "GameIndex", "SteamAppId", "Title", "Developer", "Publisher", "Genre", "ReleaseDate", "IsSteamVerified" }, null, null, null, null)
           }));
     }
@@ -509,15 +509,15 @@ namespace DataBridge.Search {
 
     /// <summary>Field number for the "results" field.</summary>
     public const int ResultsFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::DataBridge.Search.GameLabel> _repeated_results_codec
-        = pb::FieldCodec.ForMessage(10, global::DataBridge.Search.GameLabel.Parser);
-    private readonly pbc::RepeatedField<global::DataBridge.Search.GameLabel> results_ = new pbc::RepeatedField<global::DataBridge.Search.GameLabel>();
+    private static readonly pb::FieldCodec<global::DataBridge.Search.Label> _repeated_results_codec
+        = pb::FieldCodec.ForMessage(10, global::DataBridge.Search.Label.Parser);
+    private readonly pbc::RepeatedField<global::DataBridge.Search.Label> results_ = new pbc::RepeatedField<global::DataBridge.Search.Label>();
     /// <summary>
     /// 여러 개를 담아서 보냄
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::DataBridge.Search.GameLabel> Results {
+    public pbc::RepeatedField<global::DataBridge.Search.Label> Results {
       get { return results_; }
     }
 
@@ -653,19 +653,19 @@ namespace DataBridge.Search {
   }
 
   /// <summary>
-  /// 리스트에 들어갈 알맹이 (GameLabel)
+  /// 리스트에 들어갈 알맹이
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class GameLabel : pb::IMessage<GameLabel>
+  public sealed partial class Label : pb::IMessage<Label>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GameLabel> _parser = new pb::MessageParser<GameLabel>(() => new GameLabel());
+    private static readonly pb::MessageParser<Label> _parser = new pb::MessageParser<Label>(() => new Label());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GameLabel> Parser { get { return _parser; } }
+    public static pb::MessageParser<Label> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -681,7 +681,7 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameLabel() {
+    public Label() {
       OnConstruction();
     }
 
@@ -689,7 +689,7 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameLabel(GameLabel other) : this() {
+    public Label(Label other) : this() {
       searchName_ = other.searchName_;
       title_ = other.title_;
       gameIndex_ = other.gameIndex_;
@@ -700,8 +700,8 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GameLabel Clone() {
-      return new GameLabel(this);
+    public Label Clone() {
+      return new Label(this);
     }
 
     /// <summary>Field number for the "search_name" field.</summary>
@@ -782,12 +782,12 @@ namespace DataBridge.Search {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GameLabel);
+      return Equals(other as Label);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GameLabel other) {
+    public bool Equals(Label other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -912,7 +912,7 @@ namespace DataBridge.Search {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GameLabel other) {
+    public void MergeFrom(Label other) {
       if (other == null) {
         return;
       }
