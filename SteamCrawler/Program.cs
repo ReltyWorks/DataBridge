@@ -42,10 +42,34 @@ namespace SteamCrawler
                 sw.Restart();
 
                 Console.WriteLine("\n[DB] 데이터베이스 적재 시작...");
-                DbManager.BulkInsertGameData(gameDataList);
+
+                bool isSuccess = DbManager.BulkInsertGameData(gameDataList);
 
                 sw.Stop();
-                Console.WriteLine($"[DB에 저장] 완료 (소요시간: {sw.Elapsed.TotalSeconds:F2}초)");
+
+                if (isSuccess)
+                {
+                    Console.WriteLine($"[DB] 저장 성공! (소요시간: {sw.Elapsed.TotalSeconds:F2}초)");
+
+                    // DB 저장이 성공했으니, 이제 History에 기록
+                    try
+                    {
+                        // NewArrival 파일 내용을 통째로 읽어서 History 끝에 붙여넣기
+                        string newContent = File.ReadAllText(Definition.NEW_ARRIVAL_FILE);
+                        File.AppendAllText(Definition.HISTORY_FILE, newContent);
+
+                        Console.WriteLine("[System] History 파일 갱신 완료 (안전하게 기록됨).");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[Warning] DB엔 들어갔는데 History 갱신 실패함 (수동 확인 필요): {ex.Message}");
+                    }
+                }
+                else
+                {
+                    // 실패했다면 History를 건드리지 않음 -> 다음 실행 때 다시 시도 가능
+                    Console.WriteLine("[System] DB 저장 실패로 인해 History를 갱신하지 않았습니다. (데이터 보호됨)");
+                }
             }
             else
             {

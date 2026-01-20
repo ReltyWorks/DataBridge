@@ -118,7 +118,6 @@ namespace SteamCrawler
                 {
                     // NewArrival은 덮어쓰기(false), History는 이어쓰기(true) - 형 로직 그대로
                     using StreamWriter wNew = new StreamWriter(Definition.NEW_ARRIVAL_FILE, false, Encoding.UTF8);
-                    using StreamWriter wHistory = new StreamWriter(Definition.HISTORY_FILE, true, Encoding.UTF8);
 
                     foreach (var game in newGames)
                     {
@@ -126,11 +125,9 @@ namespace SteamCrawler
                         string line = $"{game.Appid}_{cleanName}";
 
                         wNew.WriteLine(line);
-                        wHistory.WriteLine(line);
                     }
 
                     Console.WriteLine($"[Save] {Definition.NEW_ARRIVAL_FILE} 저장 완료.");
-                    Console.WriteLine($"[Save] {Definition.HISTORY_FILE} 갱신 완료.");
                 }
                 else
                 {

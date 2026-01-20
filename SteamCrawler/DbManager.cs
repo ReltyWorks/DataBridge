@@ -62,12 +62,12 @@ namespace SteamCrawler
         }
 
         // 3. 데이터 대량 삽입
-        public static void BulkInsertGameData(List<TempGameData> dataList)
+        public static bool BulkInsertGameData(List<TempGameData> dataList)
         {
             if (dataList.Count == 0)
             {
                 Console.WriteLine("[Info] 저장할 데이터가 없습니다.");
-                return;
+                return false;
             }
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -120,15 +120,19 @@ namespace SteamCrawler
                         cmdLabel.ExecuteNonQuery();
                     }
 
-                    // 모든 루프가 문제없이 끝나면 진짜 저장!
+                    // 모든 루프가 문제없이 끝나면 진짜 저장
                     tr.Commit();
                     Console.WriteLine("[Success] 모든 데이터가 DB에 저장되었습니다!");
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     // 에러 나면 없던 일로 되돌리기
                     tr.Rollback();
                     Console.WriteLine($"[Error] 저장 중 문제 발생! 롤백되었습니다. : {ex.Message}");
+
+                    return false;
                 }
             }
         }
