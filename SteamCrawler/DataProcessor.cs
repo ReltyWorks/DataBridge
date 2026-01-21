@@ -83,7 +83,7 @@ namespace SteamCrawler
             return resultList;
         }
 
-        // [핵심] SearchName 생성 로직 (32자 고정 규칙)
+        // SearchName 생성 로직 (32자 고정 규칙)
         private static string GenerateUniqueSearchName(string baseName, HashSet<string> existingNames)
         {
             // 1. 일단 30자까지만 사용 (뒤에 숫자 2자리 붙여야 하니까)
@@ -97,11 +97,14 @@ namespace SteamCrawler
             while (existingNames.Contains(finalName))
             {
                 counter++;
+
+                if (counter > 99)
+                    throw new InvalidOperationException($"[Error] '{safeBase}' 이름으로 100개 이상의 중복이 발생했습니다.");
+
                 // 숫자가 늘어나면 다시 조합 (PUBG00 -> PUBG01)
                 // 혹시라도 99 넘어가면? 3자리 늘어나겠지만(100), 
                 // VARCHAR(32)니까 30+3=33 되어서 터질 수 있음.
                 // 하지만 현실적으로 이름 겹치는 게 100개 넘을 일은 극히 드묾.
-                // TODO : 예외 처리 필요.
                 finalName = $"{safeBase}{counter:D2}";
             }
 

@@ -1,0 +1,6 @@
+﻿## ignore
+[Oo]bj/
+[Bb]in/
+[Dd]ata/
+.vs/
+.env

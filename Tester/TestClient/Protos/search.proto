@@ -1,0 +1,65 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "DataBridge.Search";
+
+package Search;
+
+service SearchService
+{
+    // 1. 얕은 탐색 (Autocomplete)
+    rpc GetAutocomplete (SearchQueryRequest) returns (GameListResponse);
+
+    // 2. 깊은 탐색 (Full Search)
+    rpc GetFullSearch (SearchQueryRequest) returns (GameListResponse);
+
+    // 3. 상세 정보 조회 (Detail)
+    rpc GetGameDetail (GameIndexRequest) returns (GameInfoResponse);
+}
+
+
+
+// --- 요청 메시지 (Request) ---
+
+message SearchQueryRequest
+{
+    string query = 1; // 검색어 (ex: "ba", "battle ground")
+}
+
+message GameIndexRequest
+{
+    int32 game_index = 1; // 클릭한 게임의 고유 번호
+}
+
+
+
+// --- 응답 메시지 (Response) ---
+
+// 검색 결과 리스트 (Autocomplete, FullSearch 공용)
+message GameListResponse
+{
+    repeated Label results = 1; // 여러 개를 담아서 보냄
+}
+
+// 리스트에 들어갈 알맹이
+message Label
+{
+    string search_name = 1;   // 검색용 키 (battleground00)
+    string title = 2;         // 표시용 제목 (PUBG: BATTLEGROUNDS)
+    int32 game_index = 3;     // 고유 번호
+    int32 steam_app_id = 4;   // 스팀 ID
+    int32 weight = 5;         // 가중치 (인기도)
+}
+
+// 상세 정보 (클릭 시 보여줄 정보)
+message GameInfoResponse
+{
+    bool is_found = 1;        // 데이터 존재 여부
+    int32 game_index = 2;
+    int32 steam_app_id = 3;
+    string title = 4;
+    string developer = 5;
+    string publisher = 6;
+    string genre = 7;
+    int32 release_date = 8;
+    bool is_steam_verified = 9;
+}

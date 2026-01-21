@@ -57,7 +57,6 @@ namespace SteamCrawler
                 while (haveMore)
                 {
                     pageCount++;
-                    // 형이 작성한 URL 구조 그대로 유지 (max_results 등)
                     string requestUrl = $"{Definition.STEAM_API_BASE_URL}?key={Definition.STEAM_API_KEY}&include_games=true&include_dlc=true&include_software=true&max_results=10000";
 
                     if (lastAppId.HasValue)
