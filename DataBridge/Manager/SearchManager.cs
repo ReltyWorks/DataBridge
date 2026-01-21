@@ -1,4 +1,4 @@
-﻿using DataBridge.Search; // PruningTrie 사용 위해 추가
+﻿using DataBridge.Search;
 using Microsoft.Extensions.Caching.Memory;
 using MySql.Data.MySqlClient;
 using System.Collections.Concurrent;
@@ -9,18 +9,10 @@ namespace DataBridge.Manager
 {
     public class SearchManager
     {
-        // 1. 검색용 라벨 캐시 (Full Search & ID 조회용)
         private ConcurrentDictionary<string, GameLabel> _labelCache = new();
-
-        // 2. 자동완성용 트라이 엔진 (Autocomplete용)
         private readonly PruningTrie _trieEngine = new();
-
-        // 3. 상세 정보 캐시
         private readonly IMemoryCache _infoCache;
-
-        // DB 접속 정보
-        private string connectionString = Definition.CONNECTION_STRING; // Definition에 합쳤다면 이렇게, 아니면 기존대로
-
+        private string connectionString = Definition.CONNECTION_STRING;
         private static readonly HttpClient _httpClient = new HttpClient();
 
         public SearchManager(IMemoryCache memoryCache)
@@ -28,18 +20,16 @@ namespace DataBridge.Manager
             _infoCache = memoryCache;
         }
 
-        /// <summary> 데이터 초기 로딩 (리스트 + 트라이 동시 구축) </summary>
         public async Task LoadGameData()
         {
             Console.WriteLine("[Manager] 데이터 로딩 시작...");
 
-            // Definition.CONNECTION_STRING이 아직 구현 안 됐다면 기존 하드코딩된 string 사용
             using (var conn = new MySqlConnection(connectionString))
             {
                 await conn.OpenAsync();
 
-                // Weight 컬럼 추가됨!
-                string queryLabel = "SELECT SearchName, Title, GameIndex, SteamAppID, Weight FROM tb_GameLabel";
+                // 변수 사용 (LABEL_TABLE_NAME)
+                string queryLabel = $"SELECT SearchName, Title, GameIndex, SteamAppID, Weight FROM {Definition.LABEL_TABLE_NAME}";
 
                 using (var cmd = new MySqlCommand(queryLabel, conn))
                 using (var reader = await cmd.ExecuteReaderAsync())
@@ -54,13 +44,10 @@ namespace DataBridge.Manager
                             Title = reader.GetString("Title"),
                             GameIndex = reader.GetInt32("GameIndex"),
                             SteamAppID = reader.GetInt32("SteamAppID"),
-                            Weight = reader.GetInt32("Weight") // ★ 가중치 로딩
+                            Weight = reader.GetInt32("Weight")
                         };
 
-                        // 1. 리스트 캐시에 추가 (Full Search용)
                         _labelCache.TryAdd(key, label);
-
-                        // 2. 트라이 엔진에 추가 (Autocomplete용)
                         _trieEngine.Insert(label);
                     }
                 }
@@ -68,14 +55,11 @@ namespace DataBridge.Manager
             Console.WriteLine($"[Manager] 로딩 완료! (Total: {_labelCache.Count}개)");
         }
 
-        /// <summary> 얕은 탐색 (Autocomplete) -> 트라이 사용 </summary>
         public List<GameLabel> Autocomplete(string query)
         {
-            // 트라이 엔진에게 위임 (이미 상위 5개 & 8글자 제한 로직 들어있음)
             return _trieEngine.Autocomplete(query);
         }
 
-        /// <summary> 깊은 탐색 (Full Search) -> 리스트 전수조사 </summary>
         public List<GameLabel> FullSearch(string query)
         {
             if (string.IsNullOrWhiteSpace(query)) return new List<GameLabel>();
@@ -117,31 +101,19 @@ namespace DataBridge.Manager
                 if (isMatch) results.Add(data);
             }
 
-            // Full Search 결과도 가중치 순으로 정렬해서 반환
             results.Sort((a, b) => b.Weight.CompareTo(a.Weight));
-
             return results;
         }
 
-        /// <summary> 인덱스 조회 (라벨 캐시에서 찾기) </summary>
-        public GameLabel? GetLabelByIndex(int index)
-        {
-            return _labelCache.Values.FirstOrDefault(x => x.GameIndex == index);
-        }
-
-        /// <summary> 게임 정보 가져오기 (캐시 -> DB -> 스팀(필요시)) </summary>
         public async Task<GameInfo?> GetGameInfoAsync(int gameIndex)
         {
             string cacheKey = $"GameInfo_{gameIndex}";
 
-            // 1. 캐시 확인 (슬라이딩 만료 자동 적용)
             if (_infoCache.TryGetValue(cacheKey, out GameInfo? info))
                 return info;
 
-            // 2. 캐시에 없으면 DB/스팀 조회
             info = await FetchGameInfoFromDbOrSteam(gameIndex);
 
-            // 3. 가져온 정보 캐시에 등록 (10분 슬라이딩)
             if (info != null)
             {
                 var cacheOptions = new MemoryCacheEntryOptions()
@@ -152,7 +124,6 @@ namespace DataBridge.Manager
             return info;
         }
 
-        // DB 조회 및 스팀 업데이트
         private async Task<GameInfo?> FetchGameInfoFromDbOrSteam(int index)
         {
             GameInfo? info = null;
@@ -161,8 +132,9 @@ namespace DataBridge.Manager
             {
                 await conn.OpenAsync();
 
-                // 1. 일단 DB에서 가져오기
-                string query = "SELECT * FROM tb_GameInfo WHERE GameIndex = @idx LIMIT 1";
+                // 변수 사용 (INFO_TABLE_NAME)
+                string query = $"SELECT * FROM {Definition.INFO_TABLE_NAME} WHERE GameIndex = @idx LIMIT 1";
+
                 using (var cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@idx", index);
@@ -186,23 +158,19 @@ namespace DataBridge.Manager
                     }
                 }
 
-                // 2. DB에 데이터가 없으면? -> NULL 리턴 (라벨은 있는데 인포가 없는 경우라 거의 없음)
                 if (info == null) return null;
 
-                // 3. 데이터는 있는데 [스팀 검증]이 안 된 상태라면? (IsSteamVerified == false)
-                // -> 그리고 [수동 수정]도 안 된 상태라면? (수동 수정은 덮어쓰면 안 되니까)
                 if (!info.IsSteamVerified && !info.IsManuallyModified)
                 {
                     Console.WriteLine($"[Steam] 정보 갱신 시도 (AppID: {info.SteamAppID})");
 
-                    // 스팀 API 호출해서 정보 채워넣기
                     bool isUpdated = await UpdateInfoFromSteamApi(info);
 
                     if (isUpdated)
                     {
-                        // 4. 업데이트된 정보를 DB에 다시 저장 (UPDATE)
-                        string updateQuery = @"
-                            UPDATE tb_GameInfo 
+                        // 변수 사용 (INFO_TABLE_NAME)
+                        string updateQuery = $@"
+                            UPDATE {Definition.INFO_TABLE_NAME} 
                             SET Developer = @dev, Publisher = @pub, Genre = @genre, ReleaseDate = @date, IsSteamVerified = 1 
                             WHERE GameIndex = @idx";
 
@@ -223,43 +191,36 @@ namespace DataBridge.Manager
             return info;
         }
 
-        // 스팀 상점 API 호출 로직 (Store API)
         private async Task<bool> UpdateInfoFromSteamApi(GameInfo info)
         {
             try
             {
-                // 한국어(koreana)로 요청
-                string url = $"https://store.steampowered.com/api/appdetails?appids={info.SteamAppID}&l=koreana";
-                string jsonString = await _httpClient.GetStringAsync(url);
+                // 스팀 API 키 적용 (STEAM_API_KEY)
+                string url = $"https://store.steampowered.com/api/appdetails?appids={info.SteamAppID}&l=koreana&key={Definition.STEAM_API_KEY}";
 
-                // JSON 파싱 (동적 구조라 JsonNode 사용)
+                string jsonString = await _httpClient.GetStringAsync(url);
                 var root = JsonNode.Parse(jsonString);
-                var appData = root?[info.SteamAppID.ToString()]; // Root["12345"]
+                var appData = root?[info.SteamAppID.ToString()];
 
                 if (appData != null && (bool?)appData["success"] == true)
                 {
                     var data = appData["data"];
 
-                    // 개발사 (배열 -> 콤마 문자열)
                     if (data?["developers"] is JsonArray devs)
                         info.Developer = string.Join(", ", devs);
 
-                    // 배급사 (배열 -> 콤마 문자열)
                     if (data?["publishers"] is JsonArray pubs)
                         info.Publisher = string.Join(", ", pubs);
 
-                    // 장르 (배열 -> 콤마 문자열)
                     if (data?["genres"] is JsonArray genres)
                     {
                         var genreList = genres.Select(g => g?["description"]?.ToString()).Where(s => s != null);
                         info.Genre = string.Join(", ", genreList);
                     }
 
-                    // 출시일 (복잡함: "release_date": { "date": "2024년 1월 15일" })
-                    info.ReleaseDate = 0; // TODO : 날짜 파싱은 추후 정교화 필요
-
+                    info.ReleaseDate = 0;
                     info.IsSteamVerified = true;
-                    return true; // 업데이트 성공
+                    return true;
                 }
             }
             catch (Exception ex)

@@ -1,11 +1,14 @@
-﻿-- 1. 데이터베이스(스키마) 생성 (이름: DataBridgeDB)
-CREATE DATABASE IF NOT EXISTS DataBridgeDB;
+﻿-- 1. 기존 데이터베이스가 존재하면 삭제
+DROP DATABASE IF EXISTS DataBridgeDB;
 
--- 2. 이 데이터베이스를 사용하겠다고 선언
+-- 2. 데이터베이스 다시 생성
+CREATE DATABASE DataBridgeDB;
+
+-- 3. 이 데이터베이스 사용 선언
 USE DataBridgeDB;
 
--- 3. tb_GameInfo 테이블 생성 (무거운 상세 정보)
-CREATE TABLE IF NOT EXISTS tb_GameInfo (
+-- 4. tb_GameInfo 테이블 생성 (상세 정보)
+CREATE TABLE tb_GameInfo (
     GameIndex INT AUTO_INCREMENT PRIMARY KEY COMMENT '고유 번호 (자동생성)',
     SteamAppID INT NOT NULL COMMENT '스팀 앱 ID',
     Title VARCHAR(255) NOT NULL COMMENT '게임 제목',
@@ -17,13 +20,15 @@ CREATE TABLE IF NOT EXISTS tb_GameInfo (
     IsManuallyModified TINYINT(1) DEFAULT 0 COMMENT '수동 변경 여부 (0:false, 1:true)'
 );
 
--- 4. tb_GameLabel 테이블 생성 (가벼운 검색용 라벨)
-CREATE TABLE IF NOT EXISTS tb_GameLabel (
+-- 5. tb_GameLabel 테이블 생성 (검색용 라벨)
+CREATE TABLE tb_GameLabel (
     SearchName VARCHAR(32) PRIMARY KEY COMMENT '짧은 이름 (고유키, ex: pubg)',
     Title VARCHAR(255) NOT NULL COMMENT '게임 제목',
     GameIndex INT NOT NULL COMMENT 'GameInfo의 연결 고리',
     SteamAppID INT NOT NULL COMMENT '스팀 앱 ID',
+    Weight INT DEFAULT 0 COMMENT '가중치',
     
-    -- 성능을 위해 GameIndex에 색인(Index) 걸어두기
-    INDEX idx_GameIndex (GameIndex)
+    -- 성능을 위한 인덱스 설정
+    INDEX idx_GameIndex (GameIndex),
+    INDEX idx_Weight (Weight DESC)
 );

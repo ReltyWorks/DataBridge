@@ -105,7 +105,7 @@ namespace DataBridge.Search {
       /// <summary>
       /// 2. 깊은 탐색 (Full Search)
       /// 전체 리스트를 뒤져서(AND/OR) 조건에 맞는 결과 반환
-      /// URL 예시: GET /v1/search/full/battle ground
+      /// URL 예시: GET /search/full/battle ground
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>

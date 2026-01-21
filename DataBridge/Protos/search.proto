@@ -19,7 +19,7 @@ service SearchService
 
     // 2. 깊은 탐색 (Full Search)
     // 전체 리스트를 뒤져서(AND/OR) 조건에 맞는 결과 반환
-    // URL 예시: GET /v1/search/full/battle ground
+    // URL 예시: GET /search/full/battle ground
     rpc GetFullSearch (SearchQueryRequest) returns (GameListResponse)
     {
         option (google.api.http) = { get: "/search/full/{query}" };

@@ -1,6 +1,0 @@
-﻿-- 이미 테이블이 있다면 이거 실행
-ALTER TABLE tb_GameLabel 
-ADD COLUMN Weight INT DEFAULT 0 COMMENT '가중치 (스팀 리뷰 수 + 클릭 수)';
-
--- 성능을 위해 정렬이나 필터링에 쓸 수 있으니 인덱스도 걸어두면 좋음
-CREATE INDEX idx_Weight ON tb_GameLabel (Weight DESC);

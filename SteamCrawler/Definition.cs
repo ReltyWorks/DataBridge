@@ -9,17 +9,17 @@
         public static readonly string HISTORY_FILE = Path.Combine(SAVE_DIRECTORY, "History.txt");
         public static readonly string NEW_ARRIVAL_FILE = Path.Combine(SAVE_DIRECTORY, "NewArrival.txt");
 
-        public static readonly string STEAM_API_KEY = DotNetEnvHelper.GetEnv("STEAM_API_KEY");
         public const string STEAM_API_BASE_URL = "https://api.steampowered.com/IStoreService/GetAppList/v1/";
+        public static readonly string STEAM_API_KEY = DotNetEnvHelper.GetEnv("STEAM_API_KEY");
 
         public static readonly string DB_SCHEMA_NAME = DotNetEnvHelper.GetEnv("DB_SCHEMA_NAME");
         public static readonly string DB_USERNAME = DotNetEnvHelper.GetEnv("DB_USERNAME");
         public static readonly string DB_PASSWORD = DotNetEnvHelper.GetEnv("DB_PASSWORD");
 
-        public static readonly string CONNECTION_STRING = $"Server=127.0.0.1;Database={DB_SCHEMA_NAME};Uid={DB_USERNAME};Pwd={DB_PASSWORD};";
-
         public static readonly string INFO_TABLE_NAME = DotNetEnvHelper.GetEnv("INFO_TABLE_NAME");
         public static readonly string LABEL_TABLE_NAME = DotNetEnvHelper.GetEnv("LABEL_TABLE_NAME");
+
+        public static readonly string CONNECTION_STRING = $"Server=127.0.0.1;Database={DB_SCHEMA_NAME};Uid={DB_USERNAME};Pwd={DB_PASSWORD};";
 
         public const string DB_FIELD_GAMEINDEX = "GameIndex";
         public const string DB_FIELD_STEAMID = "SteamAppID";
