@@ -1,5 +1,6 @@
 ﻿using DotNetEnv;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace SteamCrawler
 {

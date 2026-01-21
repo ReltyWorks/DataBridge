@@ -33,6 +33,7 @@ namespace SteamCrawler
                     continue;
 
                 string[] parts = line.Split('_', 2);
+
                 if (parts.Length < 2)
                     continue;
 
@@ -52,7 +53,14 @@ namespace SteamCrawler
                     if (string.IsNullOrWhiteSpace(cleanNameBase))
                         cleanNameBase = $"unknowngame{steamId}";
 
-                    // 3. SearchName 생성
+                    string safeBaseCheck = cleanNameBase.Length > 30 ? cleanNameBase.Substring(0, 30)
+                                                                     : cleanNameBase;
+
+                    // 3. 필터링, 하나만 저장할 게임인지 확인
+                    if (GameFilter.ShouldSkip(safeBaseCheck))
+                        continue;
+
+                    // 4. SearchName 생성
                     string searchName = GenerateUniqueSearchName(cleanNameBase, existingSearchNames);
 
                     // ---------------------------------------------------------
@@ -91,7 +99,7 @@ namespace SteamCrawler
 
             // 2. 숫자 붙여가며 중복 검사, 무조건 00부터 시작
             int counter = 0;
-            string finalName = $"{safeBase}{counter:D2}"; // D2 -> "00", "01" ...
+            string finalName = $"{safeBase}{counter:D2}";
 
             // 3. HashSet에 있는지 확인
             while (existingNames.Contains(finalName))

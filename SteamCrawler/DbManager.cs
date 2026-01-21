@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace SteamCrawler
 {
@@ -36,7 +37,10 @@ namespace SteamCrawler
         // 2. 이미 존재하는 ShortName 싹 긁어오기 (HashSet으로 리턴)
         public static HashSet<string> GetAllSearchNames()
         {
-            HashSet<string> names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            // 악센트(IgnoreNonSpace)랑 대소문자(IgnoreCase) 무시하고 비교
+            HashSet<string> names = new HashSet<string>(StringComparer
+                                    .Create(CultureInfo.InvariantCulture,
+                                    CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase));
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
