@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SteamCrawler
 {
@@ -45,22 +46,25 @@ namespace SteamCrawler
                     // [Step A] 검색용 이름(SearchName) 만들기
                     // ---------------------------------------------------------
 
-                    // 1. 특수문자 제거 후 바로 '소문자 변환' (.ToLower())
-                    // 이제 'PUBG' -> 'pubg', 'NieR' -> 'nier'가 됨
-                    string cleanNameBase = Regex.Replace(rawTitle, @"[^\p{L}\p{N}]", "").ToLower();
+                    // 1. 정규화, 전각 문자(３, Ａ) 등을 반각 문자(3, A)로 강제 변환
+                    string normalizedTitle = rawTitle.Normalize(NormalizationForm.FormKC);
 
-                    // 2. 빈 값 체크
+                    // 2. 특수문자 제거 후 바로 '소문자 변환' (.ToLower())
+                    // 이제 'PUBG' -> 'pubg', 'NieR' -> 'nier'가 됨
+                    string cleanNameBase = Regex.Replace(normalizedTitle, @"[^\p{L}\p{N}]", "").ToLower();
+
+                    // 3. 빈 값 체크
                     if (string.IsNullOrWhiteSpace(cleanNameBase))
                         cleanNameBase = $"unknowngame{steamId}";
 
                     string safeBaseCheck = cleanNameBase.Length > 30 ? cleanNameBase.Substring(0, 30)
                                                                      : cleanNameBase;
 
-                    // 3. 필터링, 하나만 저장할 게임인지 확인
+                    // 4. 필터링, 하나만 저장할 게임인지 확인
                     if (GameFilter.ShouldSkip(safeBaseCheck))
                         continue;
 
-                    // 4. SearchName 생성
+                    // 5. SearchName 생성
                     string searchName = GenerateUniqueSearchName(cleanNameBase, existingSearchNames);
 
                     // ---------------------------------------------------------
