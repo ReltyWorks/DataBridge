@@ -21,10 +21,15 @@ namespace SteamCrawler
             {
                 Console.WriteLine($"[Init] 저장 경로 확인: {Definition.SAVE_DIRECTORY}");
             }
+            if (File.Exists(Definition.NEW_ARRIVAL_FILE))
+            {
+                File.Delete(Definition.NEW_ARRIVAL_FILE);
+                Console.WriteLine("[Init] 이전 작업 파일(NewArrival.txt) 청소 완료.");
+            }
 
             Console.WriteLine($"[Mode] Authenticated Mode (Key: {Definition.STEAM_API_KEY.Substring(0, 4)}***)");
 
-            // 2. 기존 히스토리 로드 (중복 방지 핵심 로직)
+            // 2. 기존 히스토리 로드
             HashSet<int> historyIds = new HashSet<int>();
             if (File.Exists(Definition.HISTORY_FILE))
             {

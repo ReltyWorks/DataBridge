@@ -1,10 +1,16 @@
-﻿USE DataBridgeDB;
+﻿-- 안전 모드 해제 (혹시 모르니)
+SET SQL_SAFE_UPDATES = 0;
 
+-- 1. 외래키 체크 끄기 (삭제 순서 꼬임 방지)
 SET FOREIGN_KEY_CHECKS = 0;
 
+-- 2. 두 테이블 싹 밀기 (초기화)
 TRUNCATE TABLE tb_GameLabel;
 TRUNCATE TABLE tb_GameInfo;
 
+-- 3. 외래키 체크 다시 켜기
 SET FOREIGN_KEY_CHECKS = 1;
 
-SELECT * FROM tb_GameInfo;
+-- 4. 확인 사살 (둘 다 비어있는지 눈으로 확인)
+SELECT COUNT(*) FROM tb_GameLabel; -- 0 나와야 함
+SELECT COUNT(*) FROM tb_GameInfo;  -- 0 나와야 함
