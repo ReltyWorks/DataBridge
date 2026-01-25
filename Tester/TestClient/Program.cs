@@ -5,7 +5,7 @@ namespace TestClient
 {
     internal class Program
     {
-        private const string ServerAddress = "http://localhost:8000";
+        private const string ServerAddress = "http://localhost:8001";
 
         static async Task Main(string[] args)
         {

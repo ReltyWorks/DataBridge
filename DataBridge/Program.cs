@@ -1,6 +1,7 @@
 ﻿using DataBridge.Manager;
 using DataBridge.Services;
 using DotNetEnv;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace DataBridge
 {
@@ -11,6 +12,15 @@ namespace DataBridge
             Env.Load();
 
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                // 1. 일반 웹/REST API용 (HTTP/1.1)
+                options.ListenLocalhost(8000, o => o.Protocols = HttpProtocols.Http1);
+
+                // 2. gRPC 전용 (HTTP/2) - 테스터는 여기로
+                options.ListenLocalhost(8001, o => o.Protocols = HttpProtocols.Http2);
+            });
 
             // 1. gRPC 서비스에 JSON Transcoding 서비스 추가
             builder.Services.AddGrpc().AddJsonTranscoding();

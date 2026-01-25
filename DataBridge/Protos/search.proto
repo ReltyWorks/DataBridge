@@ -14,7 +14,7 @@ service SearchService
     // URL 예시: GET /search/autocomplete/batt
     rpc GetAutocomplete (SearchQueryRequest) returns (GameListResponse)
     {
-        option (google.api.http) = { get: "/search/name/{search_name}" };
+        option (google.api.http) = { get: "/search/name/{query}" };
     }
 
     // 2. 깊은 탐색 (Full Search)
