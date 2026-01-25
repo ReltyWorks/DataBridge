@@ -34,8 +34,6 @@ namespace DataBridge.Search {
             "bmQYASABKAgSEgoKZ2FtZV9pbmRleBgCIAEoBRIUCgxzdGVhbV9hcHBfaWQY",
             "AyABKAUSDQoFdGl0bGUYBCABKAkSEQoJZGV2ZWxvcGVyGAUgASgJEhEKCXB1",
             "Ymxpc2hlchgGIAEoCRINCgVnZW5yZRgHIAEoCRIUCgxyZWxlYXNlX2RhdGUY",
-            "UmVxdWVzdBoYLlNlYXJjaC5HYW1lTGlzdFJlc3BvbnNlIiKC0+STAhwSGi9z",
-            "ZWFyY2gvbmFtZS97c2VhcmNoX25hbWV9EmMKDUdldEZ1bGxTZWFyY2gSGi5T",
             "CCABKAUSGQoRaXNfc3RlYW1fdmVyaWZpZWQYCSABKAgywwIKDVNlYXJjaFNl",
             "cnZpY2USZQoPR2V0QXV0b2NvbXBsZXRlEhouU2VhcmNoLlNlYXJjaFF1ZXJ5",
             "UmVxdWVzdBoYLlNlYXJjaC5HYW1lTGlzdFJlc3BvbnNlIhyC0+STAhYSFC9z",
